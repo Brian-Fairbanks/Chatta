@@ -3,6 +3,7 @@ const express = require("express");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const mongoose = require("mongoose")
 
 const indexRouter = require("./routes/index");
 const pingRouter = require("./routes/ping");
@@ -35,5 +36,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({ error: err });
 });
+
+// set up monogo DataBase
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Chatta");
+mongoose.set('useFindAndModify', false);
+var db = mongoose.connection
+    .once('open', () => console.log('Connected to mongoDB!'))
+    .on('error', (error) => {
+        console.warn('Error : ',error);
+    });
 
 module.exports = app;
