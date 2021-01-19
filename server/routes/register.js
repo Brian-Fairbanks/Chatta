@@ -6,14 +6,14 @@ const db = require("../models");
 
 router.post("/", function(req, res) {
   console.log(req.body);
-  db.User.create({
+  const newUser = db.User.create({
     username: req.body.username,
     password: req.body.password,
     lastName: req.body.lastName,
     firstName: req.body.firstName
   })
     .then(function () {
-      res.json(201, res);
+      res.status(201).json(newUser);
     })
     .catch(function(err) {
       console.log(err);
