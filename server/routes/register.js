@@ -10,7 +10,8 @@ router.post('/', function (req, res) {
     username: req.body.username,
     password: req.body.password,
     lastName: req.body.lastName,
-    firstName: req.body.firstName
+    firstName: req.body.firstName,
+    email: req.body.email
   })
     .then(function () {
       res.status(201).json(newUser)
