@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const bcrypt = require("bcrypt");
-const SALT_WORK_FACTOR = 10;
+const bcrypt = require('bcrypt')
+const SALT_WORK_FACTOR = 10
 
 const profileImage = 'https://3k67ko48fxrx2usj0z384y49-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/anonymous-user-ico-300x300-200x200.png'
 
@@ -49,26 +49,25 @@ const userSchema = new Schema({
 })
 
 // on creating/changing a user...
-userSchema.pre("save", async function save(next) {
+userSchema.pre('save', async function save (next) {
   // check if password has been changed
-  if (!this.isModified("password")) {
-    return next();
+  if (!this.isModified('password')) {
+    return next()
   }
   // and hash the password if it has
   try {
-    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-    this.password = await bcrypt.hash(this.password, salt);
-    return next();
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR)
+    this.password = await bcrypt.hash(this.password, salt)
+    return next()
   } catch (err) {
-    return next(err);
+    return next(err)
   }
-});
+})
 
 // password validation
-userSchema.methods.validatePassword = async function validatePassword(data) {
-  return bcrypt.compare(data, this.password);
-};
-
+userSchema.methods.validatePassword = async function validatePassword (data) {
+  return bcrypt.compare(data, this.password)
+}
 
 const User = mongoose.model('User', userSchema)
 module.exports = User

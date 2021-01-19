@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const db = require("../models");
+const db = require('../models')
 // const passport = require("../config/passport");
 
-router.post("/", function(req, res) {
-  console.log(req.body);
+router.post('/', function (req, res) {
+  console.log(req.body)
   const newUser = db.User.create({
     username: req.body.username,
     password: req.body.password,
@@ -13,12 +13,12 @@ router.post("/", function(req, res) {
     firstName: req.body.firstName
   })
     .then(function () {
-      res.status(201).json(newUser);
+      res.status(201).json(newUser)
     })
-    .catch(function(err) {
-      console.log(err);
-      res.status(401).json(err);
-    });
-});
+    .catch(function (err) {
+      console.log(err)
+      res.status(401).json(err)
+    })
+})
 
 module.exports = router
