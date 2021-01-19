@@ -8,203 +8,202 @@ chai.use(chaiHttp)
 // Check the Password
 describe('/POST register', () => {
   it('it should not allow a user to be created without a password', (done) => {
-      let user = {
-        username:"shums",
-        firstName:"Shums",
-        lastName:"Kassam",
-        email:"email@email.com",
-      }
+    const user = {
+      username: 'shums',
+      firstName: 'Shums',
+      lastName: 'Kassam',
+      email: 'email@email.com'
+    }
     chai.request(app)
-        .post('/register/')
-        .send(user)
-        .end((err, res) => {
-              res.should.have.status(401);
-              res.body.should.be.a('object');
-              res.body.should.have.property('errors');
-              res.body.errors.should.have.property('password');
-              res.body.errors.password.should.have.property('kind').eql('required');
-          done();
-        });
-  });
-});
+      .post('/register/')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401)
+        res.body.should.be.a('object')
+        res.body.should.have.property('errors')
+        res.body.errors.should.have.property('password')
+        res.body.errors.password.should.have.property('kind').eql('required')
+        done()
+      })
+  })
+})
 
 // Check the Password Again
 describe('/POST register', () => {
   it('it should not allow a user to be created without a password over 6 characters', (done) => {
-      let user = {
-        username:"shums",
-        firstName:"shums",
-        lastName:"kassam",
-        email:"email@email.com",
-        password:"test"
-      }
+    const user = {
+      username: 'shums',
+      firstName: 'shums',
+      lastName: 'kassam',
+      email: 'email@email.com',
+      password: 'test'
+    }
     chai.request(app)
-        .post('/register/')
-        .send(user)
-        .end((err, res) => {
-              res.should.have.status(401);
-              res.body.should.be.a('object');
-              res.body.should.have.property('errors');
-              res.body.errors.should.have.property('password');
-              res.body.errors.password.should.have.property('message').eql('Password should be longer');
-          done();
-        });
-  });
-});
+      .post('/register/')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401)
+        res.body.should.be.a('object')
+        res.body.should.have.property('errors')
+        res.body.errors.should.have.property('password')
+        res.body.errors.password.should.have.property('message').eql('Password should be longer')
+        done()
+      })
+  })
+})
 
 // Check the Username
 describe('/POST register', () => {
   it('it should not allow a user to be created without a username', (done) => {
-      let user = {
-        firstName:"shums",
-        lastName:"kassam",
-        password:"testing"
-      }
+    const user = {
+      firstName: 'shums',
+      lastName: 'kassam',
+      password: 'testing'
+    }
     chai.request(app)
-        .post('/register/')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(401);
-          res.body.should.be.a('object');
-          res.body.should.have.property('errors');
-          res.body.errors.should.have.property('username');
-          res.body.errors.username.should.have.property('kind').eql('required');
-          done();
-        });
-  });
-});
+      .post('/register/')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401)
+        res.body.should.be.a('object')
+        res.body.should.have.property('errors')
+        res.body.errors.should.have.property('username')
+        res.body.errors.username.should.have.property('kind').eql('required')
+        done()
+      })
+  })
+})
 
 // Check the First Name
 describe('/POST register', () => {
   it('it should not allow a user to be created without a first name', (done) => {
-      let user = {
-        username:"shums",
-        lastName:"kassam",
-        email:"email@email.com",
-        password:"testing"
-      }
+    const user = {
+      username: 'shums',
+      lastName: 'kassam',
+      email: 'email@email.com',
+      password: 'testing'
+    }
     chai.request(app)
-        .post('/register/')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(401);
-          res.body.should.be.a('object');
-          res.body.should.have.property('errors');
-          res.body.errors.should.have.property('firstName');
-          res.body.errors.firstName.should.have.property('kind').eql('required');
-          done();
-        });
-  });
-});
-
+      .post('/register/')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401)
+        res.body.should.be.a('object')
+        res.body.should.have.property('errors')
+        res.body.errors.should.have.property('firstName')
+        res.body.errors.firstName.should.have.property('kind').eql('required')
+        done()
+      })
+  })
+})
 
 // Check the Last Name
 describe('/POST register', () => {
   it('it should not allow a user to be created without a last name', (done) => {
-      let user = {
-        username:"shums",
-        firstName:"shums",
-        email:"email@email.com",
-        password:"testing"
-      }
+    const user = {
+      username: 'shums',
+      firstName: 'shums',
+      email: 'email@email.com',
+      password: 'testing'
+    }
     chai.request(app)
-        .post('/register/')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(401);
-          res.body.should.be.a('object');
-          res.body.should.have.property('errors');
-          res.body.errors.should.have.property('lastName');
-          res.body.errors.lastName.should.have.property('kind').eql('required');
-          done();
-        });
-  });
-});
+      .post('/register/')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401)
+        res.body.should.be.a('object')
+        res.body.should.have.property('errors')
+        res.body.errors.should.have.property('lastName')
+        res.body.errors.lastName.should.have.property('kind').eql('required')
+        done()
+      })
+  })
+})
 
 // Check the email
 describe('/POST register', () => {
   it('it should not allow a user to be created without a last name', (done) => {
-      let user = {
-        username:"shums",
-        firstName:"shums",
-        password:"testing"
-      }
+    const user = {
+      username: 'shums',
+      firstName: 'shums',
+      password: 'testing'
+    }
     chai.request(app)
-        .post('/register/')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(401);
-          res.body.should.be.a('object');
-          res.body.should.have.property('errors');
-          res.body.errors.should.have.property('email');
-          res.body.errors.email.should.have.property('kind').eql('required');
-          done();
-        });
-  });
-});
+      .post('/register/')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401)
+        res.body.should.be.a('object')
+        res.body.should.have.property('errors')
+        res.body.errors.should.have.property('email')
+        res.body.errors.email.should.have.property('kind').eql('required')
+        done()
+      })
+  })
+})
 
 // Confirm it Works!
 describe('/POST register', () => {
   it('it should allow a user with all valid fields', (done) => {
-      let user = {
-        username:"shums",
-        firstName:"shums",
-        lastName:"kassam",
-        email:"email@email.com",
-        password:"testing"
-      }
+    const user = {
+      username: 'shums',
+      firstName: 'shums',
+      lastName: 'kassam',
+      email: 'email@email.com',
+      password: 'testing'
+    }
     chai.request(app)
-        .post('/register/')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(201);
-          done();
-        });
-  });
-});
+      .post('/register/')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(201)
+        done()
+      })
+  })
+})
 
 // will not allow duplicate usernames
 describe('/POST register', () => {
   it('it should not allow a user with a duplicate username', (done) => {
-      let user = {
-        username:"shums",
-        firstName:"shums",
-        lastName:"kassam",
-        email:"new@email.com",
-        password:"testing"
-      }
+    const user = {
+      username: 'shums',
+      firstName: 'shums',
+      lastName: 'kassam',
+      email: 'new@email.com',
+      password: 'testing'
+    }
     chai.request(app)
-        .post('/register/')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(401);
-          res.body.should.be.a('object');
-          res.body.should.have.property('keyPattern');
-          res.body.keyPattern.should.have.property('username');
-          done();
-        });
-  });
-});
+      .post('/register/')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401)
+        res.body.should.be.a('object')
+        res.body.should.have.property('keyPattern')
+        res.body.keyPattern.should.have.property('username')
+        done()
+      })
+  })
+})
 
 // will not allow duplicate emails
 describe('/POST register', () => {
   it('it should not allow a user with a duplicate email', (done) => {
-      let user = {
-        username:"newShums",
-        firstName:"shums",
-        lastName:"kassam",
-        email:"email@email.com",
-        password:"testing"
-      }
+    const user = {
+      username: 'newShums',
+      firstName: 'shums',
+      lastName: 'kassam',
+      email: 'email@email.com',
+      password: 'testing'
+    }
     chai.request(app)
-        .post('/register/')
-        .send(user)
-        .end((err, res) => {
-          res.should.have.status(401);
-          res.body.should.be.a('object');
-          res.body.should.have.property('keyPattern');
-          res.body.keyPattern.should.have.property('email');
-          done();
-        });
-  });
-});
+      .post('/register/')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(401)
+        res.body.should.be.a('object')
+        res.body.should.have.property('keyPattern')
+        res.body.keyPattern.should.have.property('email')
+        done()
+      })
+  })
+})

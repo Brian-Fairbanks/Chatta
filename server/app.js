@@ -4,6 +4,8 @@ const { join } = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const mongoose = require('mongoose')
+const session = require('express-session')
+const passport = require('./config/passport')
 
 const indexRouter = require('./routes/index')
 const pingRouter = require('./routes/ping')
@@ -12,11 +14,18 @@ const { json, urlencoded } = express
 
 const app = express()
 
+// Middleware
+//= =======================
 app.use(logger('dev'))
 app.use(json())
 app.use(urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(join(__dirname, 'public')))
+
+// use sessions to keep track of user
+app.use(session({ secret: '96fa643a756e', resave: true, saveUninitialized: true }))
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use('/', indexRouter)
 app.use('/ping', pingRouter)
@@ -38,6 +47,7 @@ app.use(function (err, req, res, next) {
 })
 
 // set up monogo DataBase
+//= ===============================
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/Chatta')
 mongoose.set('useFindAndModify', false)
 const db = mongoose.connection
