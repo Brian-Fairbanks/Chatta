@@ -49,6 +49,7 @@ on your first run:
   - if not, run mongod in git bash/terminal
 - Test the connection with the Seeding Data script in the server root folder
   - (npm run seed)
+- at this point, you can check the database using a DB Viewing app such as [Robo 3T](https://robomongo.org/) 
 
 ## Dependencies
 
