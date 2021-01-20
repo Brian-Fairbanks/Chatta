@@ -1,12 +1,31 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const db = require("../models");
+const passport = require("../config/passport");
+const jwt = require('jsonwebtoken');
 
-const db = require('../models')
-const passport = require('../config/passport')
 
-router.post('/', passport.authenticate('local'), function (req, res) {
-  console.log(req.body)
-  res.json(req.user)
-})
+router.post("/", async (req, res, next) => {
+  // run the user passport jwt authentication
+  passport.authenticate("login", async (err, user, info) => {
+    try {
+      if (err || !user) {
+        const error = new Error("An error occurred.");
+        return res.status(401).send({error:info});
+      }
 
-module.exports = router
+      req.login(user, { session: false }, async (error) => {
+        if (error) return res.status(401).send({error:info});
+
+        const body = { _id: user._id, username: user.username };
+        const token = jwt.sign({ user: body }, "TOP_SECRET");
+
+        return res.json({ token });
+      });
+    } catch (error) {
+      return res.status(401).send({error:info});
+    }
+  })(req, res, next);
+});
+
+module.exports = router;
