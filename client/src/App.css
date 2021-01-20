@@ -31,3 +31,10 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.signIn{
+  display:flex;
+  flex-direction: row;
+}
