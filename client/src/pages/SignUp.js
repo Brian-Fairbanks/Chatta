@@ -1,18 +1,12 @@
-import UserPaneSplash from "../components/UserPaneSplash"
+import UserPaneSplash from "../components/UserPaneSplash";
 
-
-function SignUp(){
-
-
-  return(
+function SignUp() {
+  return (
     <div className="signIn">
-      <UserPaneSplash/>
-      <div>
-        This is the sign up page!
-      </div>
-
+      <UserPaneSplash />
+      <div>This is the sign up page!</div>
     </div>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;

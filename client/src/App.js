@@ -16,8 +16,6 @@ function App() {
         <Route exact path="/" > <Redirect to="/SignUp" /></Route>
         <Route exact path="/SignUp" component={SignUp} />
         <Route exact path="/LogIn" component={LogIn} />
-        {/* Account for any other pages */}
-        <Route path="/*"><Redirect to="/SignUp" /></Route>
       </BrowserRouter>
     </MuiThemeProvider>
   );

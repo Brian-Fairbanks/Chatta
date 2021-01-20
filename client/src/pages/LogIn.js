@@ -1,11 +1,12 @@
-function LogIn(){
+import UserPaneSplash from "../components/UserPaneSplash";
 
-
-  return(
-    <div>
-      This is the Log In page!
+function LogIn() {
+  return (
+    <div className="signIn">
+      <UserPaneSplash />
+      <div>This is the Log In page!</div>
     </div>
-  )
+  );
 }
 
-export default LogIn
+export default LogIn;

@@ -1,5 +1,33 @@
 .splashPane{
+  position: relative;
   height:100vh;
   width:40vw;
-  background:#0f0;
+  background:linear-gradient(180deg, rgba(56, 139, 255,.85), rgba(133, 184, 255,.85) ), url(./bg-img.png);
+  background-size: cover;
+  background-position: center top;
+}
+
+.content{
+  width:100%;
+  height:80%;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index:10;
+}
+
+.titleImage{
+  font-size:100px;
+  color:#ffffff;
+}
+
+.titleText{
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: 500;
+  font-size:26px;
+  text-align: center;
+  padding:20%;
+  padding-top:40px;
+  color:#ffffff;
 }
