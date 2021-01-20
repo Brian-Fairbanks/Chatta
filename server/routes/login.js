@@ -18,7 +18,7 @@ router.post("/", async (req, res, next) => {
         if (error) return res.status(401).send({error:info});
 
         const body = { _id: user._id, username: user.username };
-        const token = jwt.sign({ user: body }, "TOP_SECRET");
+        const token = jwt.sign({ user: body }, process.env.JWT_KEY);
 
         return res.json({ token });
       });

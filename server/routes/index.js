@@ -10,4 +10,7 @@ router.get('/welcome', function (req, res, next) {
 router.use('/register', registerRoutes)
 router.use('/login', loginRoute)
 
+// Example of using secure routes, which will require JWT Token passed in
+//router.use('/example', passport.authenticate('jwt', { session: false }), secureRoute);
+
 module.exports = router

@@ -1,5 +1,8 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const JWTstrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
+require('dotenv').config()
 const db = require("../models");
 
 
@@ -30,5 +33,29 @@ passport.use(
     });
   })
 );
+
+
+
+
+passport.use(
+  new JWTstrategy(
+    // get JWT token passed in request
+    {
+      secretOrKey: process.env.JWT_KEY,
+      jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+    },
+    // check if the token is valid
+    async (token, done) => {
+      try {
+        // return done if it is,
+        return done(null, token.user);
+      } catch (error) {
+        //return error if it is no
+        done(error);
+      }
+    }
+  )
+);
+
 
 module.exports = passport;

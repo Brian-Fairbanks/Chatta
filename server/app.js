@@ -9,7 +9,6 @@ const indexRouter = require('./routes/index')
 const pingRouter = require('./routes/ping')
 
 const { json, urlencoded } = express
-
 const app = express()
 
 // Middleware
