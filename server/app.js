@@ -42,7 +42,7 @@ app.use(function (err, req, res, next) {
 //= ===============================
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/Chatta')
 mongoose.set('useFindAndModify', false)
-const db = mongoose.connection
+mongoose.connection
   .once('open', () => console.log('Connected to mongoDB!'))
   .on('error', (error) => {
     console.warn('Error : ', error)

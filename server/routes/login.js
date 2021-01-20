@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../models')
 const passport = require('../config/passport')
 const jwt = require('jsonwebtoken')
 
@@ -10,7 +9,7 @@ router.post('/', async (req, res, next) => {
     try {
       if (err || !user) {
         const error = new Error('An error occurred.')
-        return res.status(401).send({ error: info })
+        return res.status(401).send({ error, info })
       }
 
       req.login(user, { session: false }, async (error) => {
