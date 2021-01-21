@@ -33,24 +33,35 @@ passport.use(
   })
 )
 
+// custom cookie extractor for JWT Strategy
+const cookieExtractor = function (req) {
+  let token = null
+  if (req && req.cookies) {
+    token = req.cookies.jwt
+  }
+  return token
+}
+
+const opts = {}
+opts.jwtFromRequest = ExtractJWT.fromExtractors([cookieExtractor])
+opts.secretOrKey = process.env.JWT_KEY
 passport.use(
-  new JWTStrategy(
-    // get JWT token passed in request
-    {
-      secretOrKey: process.env.JWT_KEY,
-      jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
-    },
-    // check if the token is valid
-    async (token, done) => {
-      try {
-        // return done if it is,
-        return done(null, token.user)
-      } catch (error) {
-        // return error if it is no
-        done(error)
+  new JWTStrategy(opts, function (JWTPayload, done) {
+    // decode JWT to get user id, and attempt to find that user
+    db.User.findOne({ id: JWTPayload.sub }, function (err, user) {
+      // return an error and false if null or invalid
+      if (err) {
+        return done(err, false)
       }
-    }
-  )
+      // if the user is found, erturn done and pass back the user
+      if (user) {
+        return done(null, user)
+        // if no error, but user not found, return with no user
+      } else {
+        return done(null, false)
+      }
+    })
+  })
 )
 
 module.exports = passport
