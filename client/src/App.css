@@ -1,3 +1,12 @@
+/* *{
+  outline:1px solid #f00;
+} */
+
+#root, body, html{
+  padding:0px;
+  margin:0px;
+}
+
 .App {
   text-align: center;
 }
@@ -30,11 +39,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-
-
-.signIn{
-  display:flex;
-  flex-direction: row;
 }
