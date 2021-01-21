@@ -18,7 +18,7 @@ describe('/POST register', () => {
       .post('/register/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(401)
+        res.should.have.status(400)
         res.body.should.be.a('object')
         res.body.should.have.property('errors')
         res.body.errors.should.have.property('password')
@@ -42,7 +42,7 @@ describe('/POST register', () => {
       .post('/register/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(401)
+        res.should.have.status(400)
         res.body.should.be.a('object')
         res.body.should.have.property('errors')
         res.body.errors.should.have.property('password')
@@ -64,7 +64,7 @@ describe('/POST register', () => {
       .post('/register/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(401)
+        res.should.have.status(400)
         res.body.should.be.a('object')
         res.body.should.have.property('errors')
         res.body.errors.should.have.property('username')
@@ -87,7 +87,7 @@ describe('/POST register', () => {
       .post('/register/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(401)
+        res.should.have.status(400)
         res.body.should.be.a('object')
         res.body.should.have.property('errors')
         res.body.errors.should.have.property('firstName')
@@ -110,7 +110,7 @@ describe('/POST register', () => {
       .post('/register/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(401)
+        res.should.have.status(400)
         res.body.should.be.a('object')
         res.body.should.have.property('errors')
         res.body.errors.should.have.property('lastName')
@@ -132,7 +132,7 @@ describe('/POST register', () => {
       .post('/register/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(401)
+        res.should.have.status(400)
         res.body.should.be.a('object')
         res.body.should.have.property('errors')
         res.body.errors.should.have.property('email')
@@ -176,7 +176,7 @@ describe('/POST register', () => {
       .post('/register/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(401)
+        res.should.have.status(400)
         res.body.should.be.a('object')
         res.body.should.have.property('keyPattern')
         res.body.keyPattern.should.have.property('username')
@@ -199,7 +199,7 @@ describe('/POST register', () => {
       .post('/register/')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(401)
+        res.should.have.status(400)
         res.body.should.be.a('object')
         res.body.should.have.property('keyPattern')
         res.body.keyPattern.should.have.property('email')

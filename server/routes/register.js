@@ -4,7 +4,6 @@ const router = express.Router()
 const db = require('../models')
 
 router.post('/', function (req, res) {
-  console.log(req.body)
   const newUser = db.User.create({
     username: req.body.username,
     password: req.body.password,
@@ -17,7 +16,7 @@ router.post('/', function (req, res) {
     })
     .catch(function (err) {
       console.log(err)
-      res.status(401).json(err)
+      res.status(400).json(err)
     })
 })
 

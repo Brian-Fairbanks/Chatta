@@ -1,6 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-const JWTstrategy = require('passport-jwt').Strategy
+const JWTStrategy = require('passport-jwt').Strategy
 const ExtractJWT = require('passport-jwt').ExtractJwt
 require('dotenv').config()
 const db = require('../models')
@@ -34,7 +34,7 @@ passport.use(
 )
 
 passport.use(
-  new JWTstrategy(
+  new JWTStrategy(
     // get JWT token passed in request
     {
       secretOrKey: process.env.JWT_KEY,

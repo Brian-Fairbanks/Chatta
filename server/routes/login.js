@@ -8,20 +8,18 @@ router.post('/', async (req, res, next) => {
   passport.authenticate('login', async (err, user, info) => {
     try {
       if (err || !user) {
-        const error = new Error('An error occurred.')
-        return res.status(401).send({ error, info })
+        return res.status(401).send({ error:"An error has occurred" })
       }
 
       req.login(user, { session: false }, async (error) => {
-        if (error) return res.status(401).send({ error: info })
+        if (error) return res.status(401).send({ error })
 
-        const body = { _id: user._id, username: user.username }
-        const token = jwt.sign({ user: body }, process.env.JWT_KEY)
+        const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY)
 
         return res.json({ token })
       })
     } catch (error) {
-      return res.status(401).send({ error: info })
+      return res.status(401).send({ error })
     }
   })(req, res, next)
 })
