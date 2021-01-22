@@ -4,7 +4,15 @@ export default {
     // set up fetch requests
     const requestOptions = {
       method: "POST",
-      body: userData,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        // "username " seems to be hard coded into the passport authenticate strategy.
+        username:userData.email,
+        password:userData.password
+      }),
     };
     const response = await fetch("/login", requestOptions);
     return response;
@@ -15,7 +23,11 @@ export default {
     // set up fetch requests
     const requestOptions = {
       method: "POST",
-      body: userData,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
     };
     const response = await fetch("/register", requestOptions);
     const data = await response.json();

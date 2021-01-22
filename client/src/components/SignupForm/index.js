@@ -50,7 +50,7 @@ function SignupForm() {
   function handleSubmit(event) {
     event.preventDefault();
 
-    API.LogIn(userSubmission)
+    API.SignUp(userSubmission)
       .then((data) => {
         if (data.status === 200) {
           console.log({ status: data.status, message: data.statusText });
