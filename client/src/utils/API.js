@@ -30,7 +30,6 @@ export default {
       body: JSON.stringify(userData),
     };
     const response = await fetch("/register", requestOptions);
-    const data = await response.json();
-    return data;
+    return response;
   },
 };

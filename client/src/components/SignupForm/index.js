@@ -38,8 +38,79 @@ function SignupForm() {
   // Set up States
   const [userSubmission, setUserSubmission] = useState({
     password: "",
+    passwordError: "",
     email: "",
+    emailError: "",
+    firstName: "",
+    firstNameError: "",
+    lastName: "",
+    lastNameError: "",
+    username: "",
+    usernameError: "",
   });
+
+  // function for Validation
+  function validate() {
+    let isError = false;
+    // reset error messages between validation attempts
+    const errors = {
+      passwordError: "",
+      emailError: "",
+      firstNameError: "",
+      lastNameError: "",
+      usernameError: "",
+    };
+
+    // check password
+    if (userSubmission.password.length < 1) {
+      isError = true;
+      errors.passwordError = "Password is required!";
+    }
+    else if (userSubmission.password.length < 6) {
+      isError = true;
+      errors.passwordError = "Password must be longer than 6 characters!";
+    }
+
+    // check Username
+    if (userSubmission.username.length < 1) {
+      isError = true;
+      errors.usernameError = "Username is required!";
+    }
+
+    // check FirstName
+    if (userSubmission.firstName.length < 1) {
+      isError = true;
+      errors.firstNameError = "First Name is required!";
+    }
+
+    // check LastName
+    if (userSubmission.lastName.length < 1) {
+      isError = true;
+      errors.lastNameError = "Last Name is required!";
+    }
+
+    // check Email Address
+    if (userSubmission.email.length < 1) {
+      isError = true;
+      errors.emailError = "Email Address is required!";
+    }
+    else if (!validateEmail(userSubmission.email)) {
+      isError = true;
+      errors.emailError = "Ensure a valid Email Address!";
+    }
+
+    // Set Errors
+    if (isError) {
+      setUserSubmission({ ...userSubmission, ...errors });
+    }
+    return !isError;
+  }
+
+  // compare email against a regular expression
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
 
   // function to aid in setting states
   function handleInputChange(event) {
@@ -49,6 +120,9 @@ function SignupForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (!validate()) {
+      return console.log("Contains Errors!");
+    }
 
     API.SignUp(userSubmission)
       .then((data) => {
@@ -65,11 +139,11 @@ function SignupForm() {
   //===========================
   return (
     <div>
-      <h1> Create and account.</h1>
+      <h1> Create an account.</h1>
 
       <Form className={classes.form} onSubmit={handleSubmit}>
-      <TextField
-          id="standard-basic"
+        <TextField
+          id="standard-basic-fname"
           label="First Name"
           width="100%"
           name="firstName"
@@ -79,7 +153,7 @@ function SignupForm() {
         <Typography className={classes.divider} />
 
         <TextField
-          id="standard-basic"
+          id="standard-basic-lname"
           label="Last Name"
           width="100%"
           name="lastName"
@@ -89,7 +163,7 @@ function SignupForm() {
         <Typography className={classes.divider} />
 
         <TextField
-          id="standard-basic"
+          id="standard-basic-email"
           label="E-mail address"
           width="100%"
           name="email"
@@ -99,7 +173,7 @@ function SignupForm() {
         <Typography className={classes.divider} />
 
         <TextField
-          id="standard-basic"
+          id="standard-basic-username"
           label="Username"
           width="100%"
           name="username"
