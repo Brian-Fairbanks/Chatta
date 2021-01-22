@@ -15,7 +15,8 @@ export default {
       }),
     };
     const response = await fetch("/login", requestOptions);
-    return response;
+    const data = await response.json();
+    return data;
   },
 
   //Sign Up New Users
@@ -30,6 +31,7 @@ export default {
       body: JSON.stringify(userData),
     };
     const response = await fetch("/register", requestOptions);
-    return response;
+    const data = await response.json();
+    return {status:response.status, ...data};
   },
 };

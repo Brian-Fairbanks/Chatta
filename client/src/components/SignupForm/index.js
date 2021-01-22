@@ -1,5 +1,6 @@
 import Form from "@material-ui/core/FormControl";
-import { TextField, Button, Typography, Grid } from "@material-ui/core";
+import { TextField, Button, Typography, Grid, Snackbar } from "@material-ui/core";
+import { Alert as MuiAlert } from '@material-ui/lab';
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 
@@ -29,6 +30,11 @@ const useStyles = makeStyles({
     textTransform: "none",
   },
 });
+
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 // Login Form Component
 function SignupForm() {
@@ -98,9 +104,8 @@ function SignupForm() {
     }
 
     // Set Errors
-    if (isError) {
-      setUserSubmission({ ...userSubmission, ...errors });
-    }
+    setUserSubmission({ ...userSubmission, ...errors });
+
     return !isError;
   }
 
@@ -116,6 +121,7 @@ function SignupForm() {
     setUserSubmission({ ...userSubmission, [name]: value });
   }
 
+  // Handle submit, and explain errors if any come back
   function handleSubmit(event) {
     event.preventDefault();
     if (!validate()) {
@@ -124,21 +130,56 @@ function SignupForm() {
 
     API.SignUp(userSubmission)
       .then((data) => {
-        if (data.status === 200) {
-          console.log({ status: data.status, message: data.statusText });
+        if (data.status === 201) {
+          handleSuccessAlert();
         } else {
-          console.log({ status: data.status, message: data.statusText });
+          // decrypt errors
+          // was username already taken?
+          if (data.keyPattern && data.keyPattern.username) {
+            setUserSubmission((prevData) => {
+              return {
+                ...prevData,
+                usernameError: prevData.username + " is already taken",
+              };
+            });
+          }
+          // Was email already taken?
+          else if (data.keyPattern && data.keyPattern.email) {
+            setUserSubmission((prevData) => {
+              return {
+                ...prevData,
+                emailError: prevData.email + " is already taken",
+              };
+            });
+          } else {
+            console.log(data);
+          }
         }
       })
       .catch((err) => console.log(err));
   }
+
+
+  // Snackbar Settings
+    const [open, setOpen] = React.useState(false);
+  
+    const handleSuccessAlert = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setOpen(false);
+    };
 
   // Data returned from function
   //===========================
   return (
     <div>
       <h1> Create an account.</h1>
-
       <Form className={classes.form} onSubmit={handleSubmit}>
         <Grid container spacing={3} justify="center" alignItems="center">
           <Grid item xs={12} sm={6}>
@@ -148,6 +189,8 @@ function SignupForm() {
               fullWidth
               name="firstName"
               onChange={handleInputChange}
+              helperText={userSubmission.firstNameError}
+              error={userSubmission.firstNameError !== ""}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -157,6 +200,8 @@ function SignupForm() {
               fullWidth
               name="lastName"
               onChange={handleInputChange}
+              helperText={userSubmission.lastNameError}
+              error={userSubmission.lastNameError !== ""}
             />
           </Grid>
 
@@ -167,6 +212,8 @@ function SignupForm() {
               fullWidth
               name="username"
               onChange={handleInputChange}
+              helperText={userSubmission.usernameError}
+              error={userSubmission.usernameError !== ""}
             />
           </Grid>
 
@@ -177,6 +224,8 @@ function SignupForm() {
               fullWidth
               name="email"
               onChange={handleInputChange}
+              helperText={userSubmission.emailError}
+              error={userSubmission.emailError !== ""}
             />
           </Grid>
 
@@ -188,6 +237,8 @@ function SignupForm() {
               fullWidth
               name="password"
               onChange={handleInputChange}
+              helperText={userSubmission.passwordError}
+              error={userSubmission.passwordError !== ""}
             />
           </Grid>
           <Grid item xs={6} container display="flex" justify="center">
@@ -202,6 +253,13 @@ function SignupForm() {
           </Grid>
         </Grid>
       </Form>
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          You have just created an account!
+        </Alert>
+      </Snackbar>
+
     </div>
   );
 }
