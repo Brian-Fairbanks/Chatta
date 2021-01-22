@@ -1,5 +1,5 @@
 import Form from "@material-ui/core/FormControl";
-import { TextField, Button, Typography } from "@material-ui/core";
+import { TextField, Button, Typography, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 
@@ -65,8 +65,7 @@ function SignupForm() {
     if (userSubmission.password.length < 1) {
       isError = true;
       errors.passwordError = "Password is required!";
-    }
-    else if (userSubmission.password.length < 6) {
+    } else if (userSubmission.password.length < 6) {
       isError = true;
       errors.passwordError = "Password must be longer than 6 characters!";
     }
@@ -93,8 +92,7 @@ function SignupForm() {
     if (userSubmission.email.length < 1) {
       isError = true;
       errors.emailError = "Email Address is required!";
-    }
-    else if (!validateEmail(userSubmission.email)) {
+    } else if (!validateEmail(userSubmission.email)) {
       isError = true;
       errors.emailError = "Ensure a valid Email Address!";
     }
@@ -142,64 +140,67 @@ function SignupForm() {
       <h1> Create an account.</h1>
 
       <Form className={classes.form} onSubmit={handleSubmit}>
-        <TextField
-          id="standard-basic-fname"
-          label="First Name"
-          width="100%"
-          name="firstName"
-          onChange={handleInputChange}
-        />
+        <Grid container spacing={3} justify="center" alignItems="center">
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="standard-basic-fname"
+              label="First Name"
+              fullWidth
+              name="firstName"
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="standard-basic-lname"
+              label="Last Name"
+              fullWidth
+              name="lastName"
+              onChange={handleInputChange}
+            />
+          </Grid>
 
-        <Typography className={classes.divider} />
+          <Grid item xs={12}>
+            <TextField
+              id="standard-basic-username"
+              label="Username"
+              fullWidth
+              name="username"
+              onChange={handleInputChange}
+            />
+          </Grid>
 
-        <TextField
-          id="standard-basic-lname"
-          label="Last Name"
-          width="100%"
-          name="lastName"
-          onChange={handleInputChange}
-        />
+          <Grid item xs={12}>
+            <TextField
+              id="standard-basic-email"
+              label="E-mail address"
+              fullWidth
+              name="email"
+              onChange={handleInputChange}
+            />
+          </Grid>
 
-        <Typography className={classes.divider} />
-
-        <TextField
-          id="standard-basic-email"
-          label="E-mail address"
-          width="100%"
-          name="email"
-          onChange={handleInputChange}
-        />
-
-        <Typography className={classes.divider} />
-
-        <TextField
-          id="standard-basic-username"
-          label="Username"
-          width="100%"
-          name="username"
-          onChange={handleInputChange}
-        />
-
-        <Typography className={classes.divider} />
-
-        <TextField
-          id="standard-basic-password"
-          label="Password"
-          type="Password"
-          name="password"
-          onChange={handleInputChange}
-        />
-
-        <Typography className={classes.divider} />
-
-        <Button
-          type="submit"
-          variant="contained"
-          className={classes.buttonDark}
-          onClick={handleSubmit}
-        >
-          Create
-        </Button>
+          <Grid item xs={12}>
+            <TextField
+              id="standard-basic-password"
+              label="Password"
+              type="Password"
+              fullWidth
+              name="password"
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={6} container display="flex" justify="center">
+            <Button
+              type="submit"
+              variant="contained"
+              className={classes.buttonDark}
+              onClick={handleSubmit}
+            >
+              Create
+            </Button>
+          </Grid>
+        </Grid>
       </Form>
     </div>
   );
