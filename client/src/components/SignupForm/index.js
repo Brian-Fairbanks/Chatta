@@ -1,6 +1,12 @@
 import Form from "@material-ui/core/FormControl";
-import { TextField, Button, Typography, Grid, Snackbar } from "@material-ui/core";
-import { Alert as MuiAlert } from '@material-ui/lab';
+import {
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  Snackbar,
+} from "@material-ui/core";
+import { Alert as MuiAlert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 
@@ -31,13 +37,15 @@ const useStyles = makeStyles({
   },
 });
 
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 // Login Form Component
 function SignupForm() {
+  // Setup
+  //=============================================================
+
   // set up styles for use by elements
   const classes = useStyles();
 
@@ -55,7 +63,10 @@ function SignupForm() {
     usernameError: "",
   });
 
-  // function for Validation
+  // Functions
+  //=============================================================
+
+  // Validation of user inputs
   function validate() {
     let isError = false;
     // reset error messages between validation attempts
@@ -124,17 +135,22 @@ function SignupForm() {
   // Handle submit, and explain errors if any come back
   function handleSubmit(event) {
     event.preventDefault();
+    // cancel the submit if validation finds errors
     if (!validate()) {
-      return console.log("Contains Errors!");
+      return;
     }
 
+    // otherwise, attempt to sign up the user
     API.SignUp(userSubmission)
       .then((data) => {
+        // alert with snackbox if everyhting works and you get a 201 status
         if (data.status === 201) {
           handleSuccessAlert();
-        } else {
+        }
+        // otherwise figure out what went wrong
+        else {
           // decrypt errors
-          // was username already taken?
+          // was username already taken?  show error on username
           if (data.keyPattern && data.keyPattern.username) {
             setUserSubmission((prevData) => {
               return {
@@ -143,7 +159,7 @@ function SignupForm() {
               };
             });
           }
-          // Was email already taken?
+          // Was email already taken? show error on email
           else if (data.keyPattern && data.keyPattern.email) {
             setUserSubmission((prevData) => {
               return {
@@ -151,7 +167,9 @@ function SignupForm() {
                 emailError: prevData.email + " is already taken",
               };
             });
-          } else {
+          }
+          // Not sure what would show up here, but the error is logged if it ever does.
+          else {
             console.log(data);
           }
         }
@@ -159,24 +177,25 @@ function SignupForm() {
       .catch((err) => console.log(err));
   }
 
-
   // Snackbar Settings
-    const [open, setOpen] = React.useState(false);
-  
-    const handleSuccessAlert = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = (event, reason) => {
-      if (reason === 'clickaway') {
-        return;
-      }
-  
-      setOpen(false);
-    };
+  const [open, setOpen] = React.useState(false);
 
-  // Data returned from function
-  //===========================
+  // show the snackbar
+  const handleSuccessAlert = () => {
+    setOpen(true);
+  };
+
+  //hide the snackbar
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  
+  // Data returned from component IE the Form
+  //=============================================================
   return (
     <div>
       <h1> Create an account.</h1>
@@ -259,7 +278,6 @@ function SignupForm() {
           You have just created an account!
         </Alert>
       </Snackbar>
-
     </div>
   );
 }
