@@ -1,10 +1,8 @@
-/* *{
-  outline:1px solid #f00;
-} */
-
-#root, body, html{
-  padding:0px;
-  margin:0px;
+#root,
+body,
+html {
+  padding: 0px;
+  margin: 0px;
 }
 
 .App {

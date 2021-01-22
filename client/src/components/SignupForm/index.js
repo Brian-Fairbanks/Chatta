@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 });
 
 // Login Form Component
-function LoginForm() {
+function SignupForm() {
   // set up styles for use by elements
   const classes = useStyles();
 
@@ -65,14 +65,44 @@ function LoginForm() {
   //===========================
   return (
     <div>
-      <h1> Welcome back!</h1>
+      <h1> Create and account.</h1>
 
       <Form className={classes.form} onSubmit={handleSubmit}>
+      <TextField
+          id="standard-basic"
+          label="First Name"
+          width="100%"
+          name="firstName"
+          onChange={handleInputChange}
+        />
+
+        <Typography className={classes.divider} />
+
+        <TextField
+          id="standard-basic"
+          label="Last Name"
+          width="100%"
+          name="lastName"
+          onChange={handleInputChange}
+        />
+
+        <Typography className={classes.divider} />
+
         <TextField
           id="standard-basic"
           label="E-mail address"
           width="100%"
           name="email"
+          onChange={handleInputChange}
+        />
+
+        <Typography className={classes.divider} />
+
+        <TextField
+          id="standard-basic"
+          label="Username"
+          width="100%"
+          name="username"
           onChange={handleInputChange}
         />
 
@@ -94,11 +124,11 @@ function LoginForm() {
           className={classes.buttonDark}
           onClick={handleSubmit}
         >
-          Login
+          Create
         </Button>
       </Form>
     </div>
   );
 }
 
-export default LoginForm;
+export default SignupForm;
