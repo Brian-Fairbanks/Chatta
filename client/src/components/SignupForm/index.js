@@ -1,11 +1,5 @@
 import Form from "@material-ui/core/FormControl";
-import {
-  TextField,
-  Button,
-  Typography,
-  Grid,
-  Snackbar,
-} from "@material-ui/core";
+import { TextField, Button, Grid, Snackbar } from "@material-ui/core";
 import { Alert as MuiAlert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
@@ -145,6 +139,10 @@ function SignupForm() {
       .then((data) => {
         // alert with snackbox if everyhting works and you get a 201 status
         if (data.status === 201) {
+          setSnackSettings({
+            severity: "success",
+            msg: "Congratulations! You have just created an account!",
+          });
           handleSuccessAlert();
         }
         // otherwise figure out what went wrong
@@ -152,6 +150,11 @@ function SignupForm() {
           // decrypt errors
           // was username already taken?  show error on username
           if (data.keyPattern && data.keyPattern.username) {
+            setSnackSettings({
+              severity: "error",
+              msg: userSubmission.username + " is already taken",
+            });
+            handleSuccessAlert();
             setUserSubmission((prevData) => {
               return {
                 ...prevData,
@@ -161,6 +164,11 @@ function SignupForm() {
           }
           // Was email already taken? show error on email
           else if (data.keyPattern && data.keyPattern.email) {
+            setSnackSettings({
+              severity: "error",
+              msg: userSubmission.email + " is already taken",
+            });
+            handleSuccessAlert();
             setUserSubmission((prevData) => {
               return {
                 ...prevData,
@@ -170,15 +178,28 @@ function SignupForm() {
           }
           // Not sure what would show up here, but the error is logged if it ever does.
           else {
+            setSnackSettings({
+              severity: "error",
+              msg: "Somethign went wrong!  Please try again later.",
+            });
+            handleSuccessAlert();
             console.log(data);
           }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setSnackSettings({
+          severity: "error",
+          msg: "Somethign went wrong!  Please try again later.",
+        });
+        handleSuccessAlert();
+        console.log(err);
+      });
   }
 
   // Snackbar Settings
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [snackSettings, setSnackSettings] = useState({ msg: "", severity: "" });
 
   // show the snackbar
   const handleSuccessAlert = () => {
@@ -193,7 +214,6 @@ function SignupForm() {
     setOpen(false);
   };
 
-  
   // Data returned from component IE the Form
   //=============================================================
   return (
@@ -274,8 +294,8 @@ function SignupForm() {
       </Form>
 
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          You have just created an account!
+        <Alert onClose={handleClose} severity={snackSettings.severity}>
+          {snackSettings.msg}
         </Alert>
       </Snackbar>
     </div>

@@ -16,7 +16,7 @@ export default {
     };
     const response = await fetch("/login", requestOptions);
     const data = await response.json();
-    return data;
+    return {status:response.status, ...data};
   },
 
   //Sign Up New Users
