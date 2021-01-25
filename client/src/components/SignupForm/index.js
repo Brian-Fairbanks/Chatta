@@ -124,7 +124,28 @@ function SignupForm() {
   // function to aid in setting states
   function handleInputChange(event) {
     const { name, value } = event.target;
-    setUserSubmission({ ...userSubmission, [name]: value });
+    setUserSubmission((prevData) => {
+      return { ...prevData, [name]: value };
+    });
+  }
+
+  // handle snackbar errors and alerts
+  function handleSnackApi(severity, msg, name = null) {
+    setSnackSettings({
+      severity,
+      msg,
+    });
+    handleSuccessAlert();
+    // if no name passed, don't bother changing the error data
+    if (!name) {
+      return;
+    }
+    setUserSubmission((prevData) => {
+      return {
+        ...prevData,
+        [name + "Error"]: msg,
+      };
+    });
   }
 
   // Handle submit, and explain errors if any come back
@@ -140,60 +161,44 @@ function SignupForm() {
       .then((data) => {
         // alert with snackbox if everyhting works and you get a 201 status
         if (data.status === 201) {
-          setSnackSettings({
-            severity: "success",
-            msg: "Congratulations! You have just created an account!",
-          });
-          handleSuccessAlert();
+          handleSnackApi(
+            "success",
+            "Congratulations! You have just created an account!"
+          );
         }
         // otherwise figure out what went wrong
         else {
           // decrypt errors
           // was username already taken?  show error on username
           if (data.keyPattern && data.keyPattern.username) {
-            setSnackSettings({
-              severity: "error",
-              msg: userSubmission.username + " is already taken",
-            });
-            handleSuccessAlert();
-            setUserSubmission((prevData) => {
-              return {
-                ...prevData,
-                usernameError: prevData.username + " is already taken",
-              };
-            });
+            handleSnackApi(
+              "error",
+              userSubmission.username + " is already taken",
+              "username"
+            );
           }
           // Was email already taken? show error on email
           else if (data.keyPattern && data.keyPattern.email) {
-            setSnackSettings({
-              severity: "error",
-              msg: userSubmission.email + " is already taken",
-            });
-            handleSuccessAlert();
-            setUserSubmission((prevData) => {
-              return {
-                ...prevData,
-                emailError: prevData.email + " is already taken",
-              };
-            });
+            handleSnackApi(
+              "error",
+              userSubmission.email + " is already taken",
+              "email"
+            );
           }
           // Not sure what would show up here, but the error is logged if it ever does.
           else {
-            setSnackSettings({
-              severity: "error",
-              msg: "Somethign went wrong!  Please try again later.",
-            });
-            handleSuccessAlert();
-            console.log(data);
+            handleSnackApi(
+              "error",
+              "Somethign went wrong!  Please try again later.",
+            );
           }
         }
       })
       .catch((err) => {
-        setSnackSettings({
-          severity: "error",
-          msg: "Somethign went wrong!  Please try again later.",
-        });
-        handleSuccessAlert();
+        handleSnackApi(
+          "error",
+          "Somethign went wrong!  Please try again later.",
+        );
         console.log(err);
       });
   }
