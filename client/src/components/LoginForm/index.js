@@ -5,6 +5,7 @@ import { Alert as MuiAlert } from "@material-ui/lab";
 import React, { useState } from "react";
 
 import API from "../../utils/API";
+import Validation from "../../utils/Validate";
 
 // Styles
 const useStyles = makeStyles({
@@ -116,7 +117,7 @@ function LoginForm() {
     if (userSubmission.email.length < 1) {
       isError = true;
       errors.emailError = "Email Address is required!";
-    } else if (!validateEmail(userSubmission.email)) {
+    } else if (!Validation.validateEmail(userSubmission.email)) {
       isError = true;
       errors.emailError = "Your email address doesnt quite look right!";
     }
@@ -125,12 +126,6 @@ function LoginForm() {
     setUserSubmission({ ...userSubmission, ...errors });
 
     return !isError;
-  }
-
-  // compare email against a regular expression
-  function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
   }
 
   // Snackbar Settings

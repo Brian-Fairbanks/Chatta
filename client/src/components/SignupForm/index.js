@@ -168,30 +168,9 @@ function SignupForm() {
         }
         // otherwise figure out what went wrong
         else {
+          // console.log(data.severity, data.msg, data.name)
           // decrypt errors
-          // was username already taken?  show error on username
-          if (data.keyPattern && data.keyPattern.username) {
-            handleSnackApi(
-              "error",
-              userSubmission.username + " is already taken",
-              "username"
-            );
-          }
-          // Was email already taken? show error on email
-          else if (data.keyPattern && data.keyPattern.email) {
-            handleSnackApi(
-              "error",
-              userSubmission.email + " is already taken",
-              "email"
-            );
-          }
-          // Not sure what would show up here, but the error is logged if it ever does.
-          else {
-            handleSnackApi(
-              "error",
-              "Somethign went wrong!  Please try again later.",
-            );
-          }
+          handleSnackApi(data.severity, data.msg, data.name)
         }
       })
       .catch((err) => {
