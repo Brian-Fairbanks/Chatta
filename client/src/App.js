@@ -3,11 +3,11 @@ import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 
 import { theme } from "./themes/theme";
-import LandingPage from "./pages/Landing";
-import SignUp from "./pages/SignUp";
-import LogIn from "./pages/LogIn";
+// preserved from starter script, if it is needed in the future.
+// import LandingPage from "./pages/Landing";
 
 import "./App.css";
+import UserAuth from "./components/UserAuth";
 
 function App() {
   return (
@@ -17,8 +17,12 @@ function App() {
           {" "}
           <Redirect to="/signup" />
         </Route>
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/login" component={LogIn} />
+        <Route exact path="/signup">
+          <UserAuth type="signup" />
+        </Route>
+        <Route exact path="/login">
+          <UserAuth type="login" />{" "}
+        </Route>
       </BrowserRouter>
     </MuiThemeProvider>
   );
