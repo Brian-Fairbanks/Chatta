@@ -1,10 +1,17 @@
 import Form from "@material-ui/core/FormControl";
-import { TextField, Button, Grid, Snackbar, Typography } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Grid,
+  Snackbar,
+  Typography,
+} from "@material-ui/core";
 import { Alert as MuiAlert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 
 import API from "../../utils/API";
+import Validation from "../../utils/Validate";
 
 // Styles
 const useStyles = makeStyles({
@@ -103,7 +110,7 @@ function SignupForm() {
     if (userSubmission.email.length < 1) {
       isError = true;
       errors.emailError = "Email Address is required!";
-    } else if (!validateEmail(userSubmission.email)) {
+    } else if (!Validation.validateEmail(userSubmission.email)) {
       isError = true;
       errors.emailError = "Ensure a valid Email Address!";
     }
@@ -112,12 +119,6 @@ function SignupForm() {
     setUserSubmission({ ...userSubmission, ...errors });
 
     return !isError;
-  }
-
-  // compare email against a regular expression
-  function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
   }
 
   // function to aid in setting states
