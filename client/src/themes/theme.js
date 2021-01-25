@@ -23,6 +23,24 @@ export const theme = createMuiTheme({
       display:"inline-block"
     }
   },
+
+  overrides: {
+    MuiButton: {
+      contained: {
+        padding: "16px 53px",
+        margin: "0px 30px",
+        textTransform: "none",
+      },
+      text:{
+        boxShadow: "0 0 10px rgba(0,0,0,.3)",
+        padding: "16px 53px",
+        margin: "0px 30px",
+        textTransform: "none",
+        fontWeight: 600,
+      }
+    },
+  },
+
   palette: {
     primary: { main: "#3A8DFF" }
   }

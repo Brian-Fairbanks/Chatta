@@ -28,14 +28,6 @@ const useStyles = makeStyles({
   divider: {
     height: 50,
   },
-
-  buttonDark: {
-    color: "#fff",
-    background: "#3A8DFF",
-    padding: "16px 53px",
-    margin: "0px 30px",
-    textTransform: "none",
-  },
 });
 
 function Alert(props) {
@@ -166,10 +158,8 @@ function SignupForm() {
             "Congratulations! You have just created an account!"
           );
         }
-        // otherwise figure out what went wrong
+        // otherwise print error sent back from API
         else {
-          // console.log(data.severity, data.msg, data.name)
-          // decrypt errors
           handleSnackApi(data.severity, data.msg, data.name)
         }
       })
@@ -178,7 +168,7 @@ function SignupForm() {
           "error",
           "Somethign went wrong!  Please try again later.",
         );
-        console.log(err);
+        return
       });
   }
 
@@ -269,7 +259,7 @@ function SignupForm() {
             <Button
               type="submit"
               variant="contained"
-              className={classes.buttonDark}
+              color="primary"
               onClick={handleSubmit}
             >
               Create

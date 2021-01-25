@@ -29,16 +29,6 @@ const useStyles = makeStyles({
     textAlign: "right",
   },
 
-  buttonLight: {
-    color: "#3A8DFF",
-    boxShadow: "0 0 10px rgba(0,0,0,.3)",
-    padding: "16px 53px",
-    margin: "0px 30px",
-    textTransform: "none",
-    fontFamily: "'Open Sans', Arial, sans-serif",
-    fontWeight: 600,
-  },
-
   noUnderline: {
     textDecoration: "none",
   },
@@ -66,7 +56,7 @@ function UserAuth(props) {
           <Link className={classes.noUnderline}
             to={type === "login"? "/signup":"/login"}
             >
-            <Button className={classes.buttonLight}>
+            <Button color="primary">
               {type === "login"? "Create account":"Login"}
             </Button>
           </Link>

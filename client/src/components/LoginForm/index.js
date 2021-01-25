@@ -22,14 +22,6 @@ const useStyles = makeStyles({
   divider: {
     height: 50,
   },
-
-  buttonDark: {
-    color: "#fff",
-    background: "#3A8DFF",
-    padding: "16px 53px",
-    margin: "0px 30px",
-    textTransform: "none",
-  },
 });
 
 function Alert(props) {
@@ -62,7 +54,6 @@ function LoginForm() {
     }
     API.LogIn(userSubmission)
       .then((data) => {
-        console.log(data);
         if (data.status === 200) {
           setSnackSettings({
             severity: "success",
@@ -90,7 +81,6 @@ function LoginForm() {
           msg: "An unknown error has occurred!  Please try again later.",
         });
         handleAlert();
-        console.log(err);
       });
   }
 
@@ -180,8 +170,8 @@ function LoginForm() {
 
         <Button
           type="submit"
+          color="primary"
           variant="contained"
-          className={classes.buttonDark}
           onClick={handleSubmit}
         >
           Login
