@@ -2,13 +2,46 @@ import { createMuiTheme } from "@material-ui/core";
 
 export const theme = createMuiTheme({
   typography: {
-    fontFamily: '"Roboto"',
-    fontSize: 12,
+    fontFamily: ['Open Sans', "Arial", "sans-serif"],
+    fontSize: 14,
+    fontWeight:"600",
     h1: {
-      // could customize the h1 variant as well
+      lineHeight:"3em",
+      fontFamily: ['Open Sans', "Arial", "sans-serif"],
+      fontSize:32,
+      fontWeight:700
+    },
+    h6: {
+      fontFamily: ['Open Sans', "Arial", "sans-serif"],
+      fontSize:26,
+      textAlign: "center",
+      padding:"20%",
+      paddingTop:"40px",
+      color:"#ffffff"
+    },
+    subtitle1: {
+      display:"inline-block"
     }
   },
+
+  overrides: {
+    MuiButton: {
+      contained: {
+        padding: "16px 53px",
+        margin: "0px 30px",
+        textTransform: "none",
+      },
+      text:{
+        boxShadow: "0 0 10px rgba(0,0,0,.3)",
+        padding: "16px 53px",
+        margin: "0px 30px",
+        textTransform: "none",
+        fontWeight: 600,
+      }
+    },
+  },
+
   palette: {
-    primary: { main: "#DF1B1B" }
+    primary: { main: "#3A8DFF" }
   }
 });
