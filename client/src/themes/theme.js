@@ -6,7 +6,10 @@ export const theme = createMuiTheme({
     fontSize: 14,
     fontWeight:"600",
     h1: {
-      // could customize the h1 variant as well
+      lineHeight:"3em",
+      fontFamily: ['Open Sans', "Arial", "sans-serif"],
+      fontSize:32,
+      fontWeight:700
     },
     h6: {
       fontFamily: ['Open Sans', "Arial", "sans-serif"],

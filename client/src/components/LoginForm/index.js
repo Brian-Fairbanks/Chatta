@@ -156,7 +156,7 @@ function LoginForm() {
   //===========================
   return (
     <div>
-      <h1> Welcome back!</h1>
+      <Typography variant="h1"> Welcome back!</Typography>
 
       <Form className={classes.form} onSubmit={handleSubmit}>
         <TextField

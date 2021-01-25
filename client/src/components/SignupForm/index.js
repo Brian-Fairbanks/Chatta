@@ -1,5 +1,5 @@
 import Form from "@material-ui/core/FormControl";
-import { TextField, Button, Grid, Snackbar } from "@material-ui/core";
+import { TextField, Button, Grid, Snackbar, Typography } from "@material-ui/core";
 import { Alert as MuiAlert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
@@ -218,7 +218,7 @@ function SignupForm() {
   //=============================================================
   return (
     <div>
-      <h1> Create an account.</h1>
+      <Typography variant="h1">Create an account.</Typography>
       <Form className={classes.form} onSubmit={handleSubmit}>
         <Grid container spacing={3} justify="center" alignItems="center">
           <Grid item xs={12} sm={6}>
