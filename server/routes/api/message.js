@@ -1,13 +1,13 @@
-const router = require("express").Router();
-const postController = require("../../controllers/messageController");
+const router = require('express').Router()
+const postController = require('../../controllers/messageController')
 
-router.route("/")
+router.route('/')
   .get(postController.findUser)
-  .post(postController.create);
+  .post(postController.create)
 
 router
-  .route("/:id")
+  .route('/:id')
   .get(postController.findById)
   .put(postController.update)
 
-module.exports = router;
+module.exports = router

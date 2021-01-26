@@ -5,31 +5,31 @@ const roomImage = 'https://3k67ko48fxrx2usj0z384y49-wpengine.netdna-ssl.com/wp-c
 
 const conversationSchema = new Schema({
   title: {
-    type:String
+    type: String
   },
-  substring:{
-    type:String
+  substring: {
+    type: String
   },
   image: {
     type: String,
     default: roomImage
   },
-  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  participants:[
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  participants: [
     {
-      user:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-      username:{type:String},
-      image:{type:String},
-      lastReadMessage:{type:String}
+      user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      username: { type: String },
+      image: { type: String },
+      lastReadMessage: { type: String }
     }],
-    lastMessage: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref:"Message"
-    },
-    lastUpdate:{
-      type:Date,
-      default:Date.now
-    }
+  lastMessage: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Message'
+  },
+  lastUpdate: {
+    type: Date,
+    default: Date.now
+  }
 })
 
 const Conversation = mongoose.model('Conversation', conversationSchema)

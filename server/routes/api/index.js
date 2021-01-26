@@ -1,20 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const passport = require("../../config/passport");
+const express = require('express')
+const router = express.Router()
 
-const conversation = require("./conversation");
-const message = require("./message");
+const conversation = require('./conversation')
+const message = require('./message')
 
-router.use("/conversation", conversation);
-router.use("/message", message);
+// Note that this router can only be accessed if authenticated by passport, based on ../index.js
 
-// // Example of using secure routes, which will require JWT Token passed in
-// router.use(
-//   '/example',
-//   passport.authenticate('jwt', { session: false }),
-//   function (req, res, next) {
-//     res.status(200).send({ message: 'connected to a protected route!' })
-//   }
-// )
+router.use('/conversation', conversation)
+router.use('/message', message)
 
-module.exports = router;
+module.exports = router

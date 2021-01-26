@@ -1,13 +1,13 @@
-const router = require("express").Router();
-const chatController = require("../../controllers/conversationController");
+const router = require('express').Router()
+const chatController = require('../../controllers/conversationController')
 
-router.route("/")
+router.route('/')
   .get(chatController.findUsers)
-  .post(chatController.create);
+  .post(chatController.create)
 
 router
-  .route("/:id")
+  .route('/:id')
   .get(chatController.findById)
   .put(chatController.update)
 
-module.exports = router;
+module.exports = router

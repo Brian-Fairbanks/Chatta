@@ -15,7 +15,7 @@ passport.use(
       // return false if the email does not exist
       if (!dbUser) {
         return done(null, false, {
-          message: 'Incorrect email',
+          message: 'Incorrect email'
         })
       } else {
         // also return false if the email and password do not match
