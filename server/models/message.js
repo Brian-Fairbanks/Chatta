@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const postSchema = new Schema({
-  room: {
+const messageSchema = new Schema({
+  conversation: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Chatroom",
+    ref: "Conversation",
     required: true,
   },
   author: {
@@ -19,5 +19,5 @@ const postSchema = new Schema({
   updated: { type: Boolean, default: false },
 });
 
-const Post = mongoose.model("Post", postSchema);
-module.exports = Post;
+const Message = mongoose.model("Message", messageSchema);
+module.exports = Message;

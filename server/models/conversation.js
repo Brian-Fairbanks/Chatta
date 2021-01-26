@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const roomImage = 'https://3k67ko48fxrx2usj0z384y49-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/anonymous-user-ico-300x300-200x200.png'
 
-const roomSchema = new Schema({
+const conversationSchema = new Schema({
   title: {
     type:String
   },
@@ -14,9 +14,7 @@ const roomSchema = new Schema({
     type: String,
     default: roomImage
   },
-  owner:{
-    user:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  },
+  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   participants:[
     {
       user:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
@@ -26,7 +24,7 @@ const roomSchema = new Schema({
     }],
     lastMessage: {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"Post"
+      ref:"Message"
     },
     lastUpdate:{
       type:Date,
@@ -34,5 +32,5 @@ const roomSchema = new Schema({
     }
 })
 
-const Room = mongoose.model('Room', roomSchema)
-module.exports = Room
+const Conversation = mongoose.model('Conversation', conversationSchema)
+module.exports = Conversation
