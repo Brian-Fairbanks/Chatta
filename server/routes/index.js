@@ -19,7 +19,7 @@ router.use(
   '/example',
   passport.authenticate('jwt', { session: false }),
   function (req, res, next) {
-    res.status(200).send({ message: 'connected to a protected route!', user: req.user })
+    res.status(200).send({ message: 'connected to a protected route!' })
   }
 )
 
