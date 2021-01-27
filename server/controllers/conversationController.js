@@ -21,7 +21,6 @@ module.exports = {
     try {
       // get room data
       const conversation = await db.Conversation.findById(req.params.id)
-      console.log('Found the room!', conversation)
       // get all posted messages
       const messages = await db.Message.find({
         conversation: req.params.id
