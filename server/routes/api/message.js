@@ -5,13 +5,11 @@ router.route('/')
   .get(postController.findUser)
   .post(postController.create)
 
-router
-  .route('/:id')
+router.route('/:id')
   .get(postController.findById)
   .put(postController.update)
 
-router
-  .route('/conversation/:id')
+router.route('/conversation/:id')
   .get(postController.findByConversation)
 
 module.exports = router

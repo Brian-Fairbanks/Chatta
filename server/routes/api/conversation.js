@@ -5,8 +5,7 @@ router.route('/')
   .get(chatController.findUsers)
   .post(chatController.create)
 
-router
-  .route('/:id')
+router.route('/:id')
   .get(chatController.findById)
   .put(chatController.update)
 

@@ -12,8 +12,8 @@ module.exports = {
 
   findUser: function (req, res) {
     db.Message
-      .find({ 'author': req.user._id })
-      .sort({ date: -1 })
+      .find({ author: req.user._id })
+      .sort({ timestamp: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },
@@ -28,7 +28,7 @@ module.exports = {
   findByConversation: function (req, res) {
     db.Message
       .find({ conversation: req.params.id })
-      .sort({'timestamp': 1})
+      .sort({ timestamp: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },

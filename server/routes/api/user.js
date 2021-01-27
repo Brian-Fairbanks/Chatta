@@ -4,13 +4,11 @@ const userController = require('../../controllers/userController')
 router.route('/')
   .get(userController.findAll)
 
-  router
-  .route('/:id')
+router.route('/:id')
   .get(userController.findById)
   .put(userController.update)
 
-  router
-  .route('/search/:name')
+router.route('/search/:name')
   .get(userController.findByName)
 
 module.exports = router
