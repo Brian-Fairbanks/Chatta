@@ -10,10 +10,11 @@ module.exports = {
   },
 
   findById: async function (req, res) {
-    console.log('Searching by ID')
     try {
       // get room data
       const conversation = await db.Conversation.findById(req.params.id)
+      //validate user is in conversation
+      if (!conversation.participants.includes(req.user._id)){return res.status(401)}
       // get all posted messages
       const messages = await db.Message.find({
         conversation: req.params.id
