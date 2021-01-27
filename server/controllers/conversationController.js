@@ -10,7 +10,7 @@ module.exports = {
   },
 
   findUsers: function (req, res) {
-    db.Conversation.find({ 'participants.user': req.user._id })
+    db.Conversation.find({ 'participants': req.user._id })
       .sort({ date: -1 })
       .then((dbModel) => res.json({ dbModel }))
       .catch((err) => res.status(422).json(err))
@@ -43,11 +43,9 @@ module.exports = {
       convo.participants = []
     }
     // add self to participant last
-    convo.participants.push({
-      user: req.user._id,
-      username: req.user.username,
-      image: req.user.image
-    })
+    convo.participants.push(
+      req.user._id
+      )
     // and add self as owner
     convo.owner = req.user._id
 

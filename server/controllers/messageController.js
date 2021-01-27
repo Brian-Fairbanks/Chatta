@@ -44,7 +44,7 @@ module.exports = {
       .create(msg)
       .then(async (dbModel) => {
         // updated the most recent message in the conversation document
-        await db.Conversation.findOneAndUpdate({ _id: dbModel.conversation }, { lastMessage: dbModel._id })
+        await db.Conversation.findOneAndUpdate({ _id: dbModel.conversation }, { lastMessage: {message_id: dbModel._id, content: dbModel.content }})
         res.json(dbModel)
       })
       .catch(err => res.status(422).json(err))
