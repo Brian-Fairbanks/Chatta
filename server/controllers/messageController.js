@@ -12,7 +12,7 @@ module.exports = {
 
   findUser: function (req, res) {
     db.Message
-      .find({ 'participants.user': req.user._id })
+      .find({ 'author': req.user._id })
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
@@ -21,6 +21,14 @@ module.exports = {
   findById: function (req, res) {
     db.Message
       .findById(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err))
+  },
+
+  findByConversation: function (req, res) {
+    db.Message
+      .find({ conversation: req.params.id })
+      .sort({'timestamp': 1})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err))
   },

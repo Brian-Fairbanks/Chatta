@@ -10,4 +10,8 @@ router
   .get(postController.findById)
   .put(postController.update)
 
+router
+  .route('/conversation/:id')
+  .get(postController.findByConversation)
+
 module.exports = router
