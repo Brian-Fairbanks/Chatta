@@ -1,14 +1,7 @@
 const db = require('../models')
 
-// Defining methods for the Chat Controller
+// Defining methods for the User Controller
 module.exports = {
-  findAll: function (req, res) {
-    db.User.find(req.query)
-      .sort({ date: -1 })
-      .then((dbModel) => res.json({ dbModel }))
-      .catch((err) => res.status(422).json(err))
-  },
-
   findById: function (req, res) {
     db.User.findById(req.params.id)
       .then((dbModel) => res.json({ dbModel }))
@@ -22,12 +15,4 @@ module.exports = {
       .then((dbModel) => res.json({ dbModel }))
       .catch((err) => res.status(422).json(err))
   },
-
-  update: function (req, res) {
-    db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then((dbModel) => {
-        res.json(dbModel)
-      })
-      .catch((err) => res.status(422).json(err))
-  }
 }

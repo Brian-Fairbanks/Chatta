@@ -7,6 +7,5 @@ router.route('/')
 
 router.route('/:id')
   .get(chatController.findById)
-  .put(chatController.update)
 
 module.exports = router

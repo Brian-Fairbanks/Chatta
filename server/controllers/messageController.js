@@ -10,14 +10,6 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-  findUser: function (req, res) {
-    db.Message
-      .find({ author: req.user._id })
-      .sort({ timestamp: -1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
-  },
-
   findById: function (req, res) {
     db.Message
       .findById(req.params.id)
@@ -49,12 +41,4 @@ module.exports = {
       })
       .catch(err => res.status(422).json(err))
   },
-
-  update: async function (req, res) {
-    console.log(req.body)
-    db.Message
-      .findOneAndUpdate({ _id: req.params.id }, { deleted: false, ...req.body, updated: true })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err))
-  }
 }
