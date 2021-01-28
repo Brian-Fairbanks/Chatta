@@ -34,4 +34,19 @@ export default {
     const data = await response.json();
     return {status:response.status, ...data};
   },
+
+  // retrieve a list of all users matching a search parameter
+  FindOtherUsers: 
+  async function (userData) {
+    // set up fetch requests
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Accept: 'application/json',
+      },
+    };
+    const response = await fetch("/api/user/search/"+userData, requestOptions);
+    const data = await response.json();
+    return {status:response.status, ...data};
+  },
 };
