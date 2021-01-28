@@ -16,10 +16,13 @@ router.use('/api', passport.authenticate('jwt', { session: false }), api)
 
 // Example of using secure routes, which will require JWT Token passed in
 router.use(
-  '/example',
+  '/auth',
   passport.authenticate('jwt', { session: false }),
   function (req, res, next) {
-    res.status(200).send({ message: 'connected to a protected route!' })
+
+    const {username, _id, firstName} = req.user
+    const user = {username, _id, firstName} 
+    res.status(200).send({ message: 'You may connect to this protected route', user})
   }
 )
 
