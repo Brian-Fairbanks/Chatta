@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function usefindUsersFriends() {
+export default function useFindUsersFriends() {
   const [users, setUser] = useState(null);
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {

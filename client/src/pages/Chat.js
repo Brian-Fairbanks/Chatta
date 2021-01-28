@@ -1,7 +1,7 @@
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import FriendSearch from "../components/FriendSearch";
-import FriendsWell from "../components/FriendsWell";
+import ConversationWell from "../components/ConversationWell";
 import MessageWell from "../components/MessageWell";
 // import API from "../../utils/API";
 
@@ -16,9 +16,12 @@ function ChatPage(){
     <Box>
       <Grid container>
         <Grid item xs={3}>
-          {/* <SelfSettings/> */}
-          <FriendSearch/>
-          <FriendsWell/>
+          <Box p={3}>
+            {/* <SelfSettings/> */}
+            <Typography variant="h1">Chats</Typography>
+            <FriendSearch/>
+            <ConversationWell/>
+          </Box>
         </Grid>
         <Grid item xs={9}>
           <MessageWell/>

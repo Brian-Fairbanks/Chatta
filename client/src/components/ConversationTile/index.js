@@ -1,14 +1,14 @@
 import { Box, Grid } from "@material-ui/core";
 
-function FriendTile(props){
+function ConversationTile(props){
 
   return(
-  <Grid container spacing={3}>
+  <Grid container spacing={2}>
     <Grid item xs={2}>
       <img src={props.image} width="44px" height="44px"/>
     </Grid>
     
-    <Grid item container>
+    <Grid item container xs={9}>
       <Grid item>
         {props.title}
       </Grid>
@@ -23,4 +23,4 @@ function FriendTile(props){
   )
 }
 
-export default FriendTile;
+export default ConversationTile;
