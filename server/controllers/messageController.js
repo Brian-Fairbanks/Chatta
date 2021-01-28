@@ -3,12 +3,6 @@ const utils = require("./utils");
 
 // Defining methods for the Chat Controller
 module.exports = {
-  findById: function (req, res) {
-    db.Message.findById(req.params.id)
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
-  },
-
   findByConversation: async function (req, res) {
     // Authorize user
     const authorize = await utils.isValidUserConversation(
@@ -29,11 +23,9 @@ module.exports = {
 
   create: async function (req, res) {
     // Authorize user
-    const authorize = await utils.isValidUserConversation(
-      req.params.conversation,
-      req.user._id
-    );
-    if (!authorize) {
+    const conversation = await db.Conversation.findById(req.body.conversation);
+     //validate user is in conversation
+    if (!conversation.participants.includes(req.user._id)) {
       return res
         .status(401)
         .json({ msg: "You are not a part of this conversation" });
@@ -48,8 +40,7 @@ module.exports = {
     db.Message.create(msg)
       .then(async (dbModel) => {
         // updated the most recent message in the conversation document
-        await db.Conversation.findOneAndUpdate(
-          { _id: dbModel.conversation },
+        await conversation.update(
           { lastMessage: { message_id: dbModel._id, content: dbModel.content } }
         );
         res.json(dbModel);
