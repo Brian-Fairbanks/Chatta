@@ -21,7 +21,7 @@ router.post('/', async (req, res, next) => {
           httpOnly: true
         })
         // return JSON that user login succeeded
-        return res.json({ success: true, token: 'set' })
+        return res.json({ success: true, token: 'set'})
       })
     } catch (error) {
       return res.status(401).send({ error })

@@ -20,21 +20,21 @@ router.post('/', function (req, res) {
 })
 
 // Helper function to format the returned data on a 400 error
-function formatError(err){
+function formatError (err) {
   const errorMessage = {
-    severity:"error",
+    severity: 'error',
     msg: err,
     name: null
   }
   // is the error username related?
-  if(err.keyValue && err.keyValue.username){
-    errorMessage.msg=`${err.keyValue.username} is already taken`,
-    errorMessage.name="username"
+  if (err.keyValue && err.keyValue.username) {
+    errorMessage.msg = `${err.keyValue.username} is already taken`
+    errorMessage.name = 'username'
   }
   // is the error email related?
-  if(err.keyValue && err.keyValue.email){
-    errorMessage.msg=`${err.keyValue.email} is already taken`,
-    errorMessage.name="email"
+  if (err.keyValue && err.keyValue.email) {
+    errorMessage.msg = `${err.keyValue.email} is already taken`
+    errorMessage.name = 'email'
   }
 
   // Return the formatted error message

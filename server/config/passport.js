@@ -15,7 +15,7 @@ passport.use(
       // return false if the email does not exist
       if (!dbUser) {
         return done(null, false, {
-          message: 'Incorrect email',
+          message: 'Incorrect email'
         })
       } else {
         // also return false if the email and password do not match
@@ -48,7 +48,7 @@ opts.secretOrKey = process.env.JWT_KEY
 passport.use(
   new JWTStrategy(opts, function (JWTPayload, done) {
     // decode JWT to get user id, and attempt to find that user
-    db.User.findOne({ id: JWTPayload.sub }, function (err, user) {
+    db.User.findOne({ _id: JWTPayload._id }, function (err, user) {
       // return an error and false if null or invalid
       if (err) {
         return done(err, false)
