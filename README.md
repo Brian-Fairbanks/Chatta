@@ -32,13 +32,24 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 
 
 ## Scripts
-### Install
+### Client
+#### Install
     npm install
-### Run (production)
+#### Run (production)
     npm start
-### Build
+#### Build
     npm run build
-### Seeding Data
+    
+### Server
+#### Run Backend
+    npm run dev
+#### Debug Backend
+    npm run debug
+#### Test Backend
+    npm run test
+#### Linting
+    npm run lint
+#### Seeding Data
     npm run seed
 
 
@@ -55,13 +66,18 @@ on your first run:
 
 ### Node Extensions
 #### General
+* "bcrypt": "^5.0.0",
 * "cookie-parser": "^1.4.5",
 * "dotenv": "^8.2.0",
 * "express": "^4.17.1",
 * "http-errors": "~1.8.0",
+* "jsonwebtoken": "^8.5.1",
 * "mongoose": "^5.11.12",
 * "morgan": "^1.10.0",
 * "nodemon": "^2.0.6"
+* "passport": "^0.4.1",
+* "passport-jwt": "^4.0.0",
+* "passport-local": "^1.0.0"
 
 
 #### Dev
@@ -72,8 +88,12 @@ on your first run:
 # Tests
   Testing shall be performed the the help of Mocha/Chai dependencies.
 
-  No tests are currently being run at this time.
-  This field shall be updated as tests are added
+Testing: Register API Route
+```
+user creation succeeds with valid data
+user creation fails with duplicate username and or email
+user creation fails without including email, username, first name, last name, and or password
+```
 
 ## Questions
 If you have any questions about this application, feel free to reach out to one of our members below:

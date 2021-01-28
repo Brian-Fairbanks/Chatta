@@ -8,17 +8,17 @@ const db = require('../models')
 // use LocalStrategy with passport, in other words login with username and password
 passport.use(
   'login',
-  new LocalStrategy(function (username, password, done) {
+  new LocalStrategy(function (email, password, done) {
     db.User.findOne({
-      username: username
+      email
     }).then(function (dbUser) {
-      // return false if the username does not exist
+      // return false if the email does not exist
       if (!dbUser) {
         return done(null, false, {
-          message: 'Incorrect username'
+          message: 'Incorrect email'
         })
       } else {
-        // also return false if the username and password do not match
+        // also return false if the email and password do not match
         dbUser.validatePassword(password).then((valid) => {
           if (valid) {
             return done(null, dbUser)
@@ -48,7 +48,7 @@ opts.secretOrKey = process.env.JWT_KEY
 passport.use(
   new JWTStrategy(opts, function (JWTPayload, done) {
     // decode JWT to get user id, and attempt to find that user
-    db.User.findOne({ id: JWTPayload.sub }, function (err, user) {
+    db.User.findOne({ _id: JWTPayload._id }, function (err, user) {
       // return an error and false if null or invalid
       if (err) {
         return done(err, false)

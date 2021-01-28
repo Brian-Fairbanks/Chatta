@@ -15,9 +15,30 @@ router.post('/', function (req, res) {
       res.status(201).json(newUser)
     })
     .catch(function (err) {
-      console.log(err)
-      res.status(400).json(err)
+      res.status(400).json(formatError(err))
     })
 })
+
+// Helper function to format the returned data on a 400 error
+function formatError (err) {
+  const errorMessage = {
+    severity: 'error',
+    msg: err,
+    name: null
+  }
+  // is the error username related?
+  if (err.keyValue && err.keyValue.username) {
+    errorMessage.msg = `${err.keyValue.username} is already taken`
+    errorMessage.name = 'username'
+  }
+  // is the error email related?
+  if (err.keyValue && err.keyValue.email) {
+    errorMessage.msg = `${err.keyValue.email} is already taken`
+    errorMessage.name = 'email'
+  }
+
+  // Return the formatted error message
+  return errorMessage
+}
 
 module.exports = router

@@ -40,8 +40,8 @@ app.use(function (err, req, res, next) {
 
 // set up monogo DataBase
 //= ===============================
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/Chatta')
-mongoose.set('useFindAndModify', false)
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/Chatta', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.set('useCreateIndex', true)
 mongoose.connection
   .once('open', () => console.log('Connected to mongoDB!'))
   .on('error', (error) => {
