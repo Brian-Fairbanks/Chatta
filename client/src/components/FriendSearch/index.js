@@ -3,15 +3,16 @@ import { Box, fade, makeStyles } from "@material-ui/core";
 import InputBase from '@material-ui/core/InputBase';
 import UserTile from "../UserTile";
 import API from "../../utils/API";
+import useDebounce from "../../utils/debounce";
 
 const useStyles = makeStyles((theme) => ({
   searchContent: {
-    color:"#99A9C4",
+    color:theme.palette.primary.faded,
     fontWeight:"600",
     paddingLeft:26,
   },
   search: {
-    color:"#99A9C4",
+    color:theme.palette.primary.faded,
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.primary.main, 0.15),
@@ -49,6 +50,9 @@ function FriendSearch() {
     setSearchTerm(event.target.value);
   };
 
+  // Debounce 
+  const debounceSearchTerm = useDebounce(searchTerm, 1000);
+
   useEffect(() => {
     async function grabUsers() {
       const data = await API.FindOtherUsers(searchTerm);
@@ -56,7 +60,7 @@ function FriendSearch() {
     }
     if (searchTerm) grabUsers();
     else{setSearchResults();}
-  }, [searchTerm]);
+  }, [debounceSearchTerm]);
 
   return (
     <Box>

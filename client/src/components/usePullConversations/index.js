@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-export default function useFindUsersFriends() {
-  const [users, setUser] = useState(null);
+export default function usePullConversations() {
+  const [conversations, setConversations] = useState(null);
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    async function findUser() {
+    async function getConversations() {
       // set up fetch requests
       const requestOptions = {
         method: "GET",
@@ -16,17 +16,17 @@ export default function useFindUsersFriends() {
       const response = await fetch("/api/conversation", requestOptions)
         .then(async function(res){
           const data = await res.json();
-          setUser(data.dbModel);
+          setConversations(data.dbModel);
           setLoading(false);
         })
         .catch((err) => {
           setLoading(false);
         });
     }
-    findUser();
+    getConversations();
   }, []);
   return {
-    users,
+    conversations,
     isLoading,
   };
 }

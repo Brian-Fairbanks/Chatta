@@ -35,7 +35,6 @@ module.exports = {
 
   create: function (req, res) {
     // anything passed from the backend? use that
-    console.log(req.body)
     const convo = req.body;
     // otherwise set up empty participant list.
     if (!convo.participants) {

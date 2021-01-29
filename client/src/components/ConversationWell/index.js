@@ -1,23 +1,38 @@
-import { Box} from "@material-ui/core";
+import { Box, Button} from "@material-ui/core";
+import { useContext } from "react";
 import ConversationTile from "../ConversationTile";
-import usefindUsersFriends from "../useFindUsersFriends";
+import usePullConversations from "../usePullConversations";
+import {ChatroomContext} from "../../utils/ChatroomContext";
 
-// Friend Well Creation
+// Previous Conversation Well Creation
 function ConversationWell() {
-  const { users, isLoading } = usefindUsersFriends();
+  // Set up constatnts
+  const { conversations, isLoading } = usePullConversations();
+  const { conversation, setConversation, participants, messages} = useContext(ChatroomContext);
+
+  // Handle updating conversation
+  function changeConversation(id){
+    console.log(conversation);
+    console.log("Selected",id)
+    setConversation(id);
+  }
 
   return (
     <Box>
       {isLoading
         ? "Loading"
-        : users.map((friend) => {
+        : conversations.map((chat) => {
             return (
+              <Box
+                onClick={() => {changeConversation(chat._id)}}
+              >
                 <ConversationTile
-                key={friend.participants}
-                title={friend.title? friend.title:friend.participants}
-                message = {friend.lastMessage?friend.lastMessage.content:""}
-                image={friend.image}
-              />
+                  key={chat.participants}
+                  title={chat.title ? chat.title : chat.participants}
+                  message={chat.lastMessage ? chat.lastMessage.content : ""}
+                  image={chat.image}
+                />
+              </Box>
             );
           })}
     </Box>

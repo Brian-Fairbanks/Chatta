@@ -13,7 +13,7 @@ export default function useFindUser() {
         },
       };
 
-      const response = await fetch("/auth", requestOptions)
+      await fetch("/auth", requestOptions)
         .then(async function(res){
           const data = await res.json();
           setUser(data.user);
@@ -27,6 +27,7 @@ export default function useFindUser() {
   }, []);
   return {
     user,
+    setUser,
     isLoading,
   };
 }
