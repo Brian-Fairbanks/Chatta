@@ -25,7 +25,7 @@ function Message(props){
         <Avatar className={classes.avatar} src={props.image}></Avatar>
       </Grid>
 
-      <Grid item direction="row">
+      <Grid item>
         <Box>
   <Typography variant="subtitle2">{props.username} {props.timeStamp}</Typography>
         </Box>

@@ -28,10 +28,10 @@ function ConversationWell() {
         : conversations.map((chat) => {
             return (
               <Box
+                key={chat._id}
                 onClick={() => {changeConversation(chat._id)}}
               >
                 <ConversationTile
-                  key={chat.participants}
                   title={chat.title ? chat.title : chat.participants}
                   message={chat.lastMessage ? chat.lastMessage.content : ""}
                   image={chat.image}

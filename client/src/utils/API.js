@@ -72,13 +72,15 @@ export default {
   postMessage: async function (userData) {
     // set up fetch requests
     const requestOptions = {
-      method: "GET",
+      method: "POST",
       headers: {
         Accept: "application/json",
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify(userData),
     };
     const response = await fetch(
-      "/api/message" + userData.id,
+      "/api/message",
       requestOptions
     );
     const data = await response.json();

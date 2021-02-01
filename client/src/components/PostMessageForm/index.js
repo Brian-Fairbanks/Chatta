@@ -9,6 +9,7 @@ import {
   TextareaAutosize,
 } from "@material-ui/core";
 import { ChatroomContext } from "../../utils/ChatroomContext";
+import utils from "../../utils/API";
 
 const useStyles = makeStyles({
   form: {
@@ -52,7 +53,7 @@ function PostMessageForm() {
     if (event) {
       event.preventDefault();
     }
-    console.log("Submitting:", userSubmission);
+    const data = await utils.postMessage(userSubmission);
   }
 
   // function to handle submitting the form when pressing enter, or adding new lines with alt/ctrl/shift + enter
@@ -94,7 +95,6 @@ function PostMessageForm() {
             name="content"
             id="standard-basic-fname"
             placeholder="Type something..."
-            fullWidth
             value={userSubmission.content}
             onChange={handleInputChange}
             onKeyUp={onEnterPress}

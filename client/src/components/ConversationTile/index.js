@@ -18,7 +18,7 @@ function ConversationTile(props){
   const classes = useStyles();
 
   return(
-  <Grid container flexWrap="nowrap" >
+  <Grid container>
     <Grid item xs={2}>
       <Avatar src={props.image} className={classes.conImg}/>
     </Grid>
@@ -32,7 +32,7 @@ function ConversationTile(props){
       </Grid>
     </Grid>
 
-    <Grid item flexShrink={1}>
+    <Grid item>
       2
     </Grid>
   </Grid>
