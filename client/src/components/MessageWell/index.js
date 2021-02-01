@@ -1,30 +1,36 @@
 import { Box, Typography } from "@material-ui/core";
 import { useContext, useEffect } from "react";
 import { ChatroomContext } from "../../utils/ChatroomContext";
+import Message from "../Message";
 
-function MessageWell(){
-  const { conversation, participants, messages} = useContext(ChatroomContext);
+function MessageWell() {
+  const { conversation, participants, messages } = useContext(ChatroomContext);
 
-  useEffect(() => {
-    console.log("change happens/n",conversation)
-  }, [conversation])
-
-  return(
+  return (
     <Box>
       <Typography variant="h1">Message Well</Typography>
-      {!conversation?"No conversation selected."
-      :
-      <Box>
-        <Typography variant={"h1"}>{conversation.title||conversation._id}</Typography>
-        {
-          messages.map( message => {
-            return(<div>{message.content}</div>)
-          })
-        }
-      </Box>
-      }
+      {!conversation ? (
+        "No conversation selected."
+      ) : (
+        <Box>
+          {messages.map((message) => {
+            const author = participants.filter(
+              (user) => user._id == message.author
+            )[0]
+            return (
+              <Message
+                key={message._id}
+                content={message.content}
+                timeStamp = {message.timestamp}
+                username={author?author.username:""}
+                image = {author?author.image:""}
+              ></Message>
+            );
+          })}
+        </Box>
+      )}
     </Box>
-  )
+  );
 }
 
 export default MessageWell;
