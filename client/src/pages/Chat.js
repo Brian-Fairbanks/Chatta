@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import FriendSearch from "../components/FriendSearch";
 import ConversationWell from "../components/ConversationWell";
 import MessageWell from "../components/MessageWell";
+import PostMessageForm from "../components/PostMessageForm";
 // import API from "../../utils/API";
 
 const useStyles = makeStyles({
@@ -23,8 +24,11 @@ function ChatPage(){
             <ConversationWell/>
           </Box>
         </Grid>
-        <Grid item xs={9}>
-          <MessageWell/>
+        <Grid container item xs={9} direction="column">
+          <Box flexGrow={1}>
+            <MessageWell/>
+          </Box>
+          <PostMessageForm/>
         </Grid>
       </Grid>
     </Box>

@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, makeStyles } from "@material-ui/core";
+import { Box, Grid, Typography, makeStyles, Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   content:{
@@ -6,17 +6,23 @@ const useStyles = makeStyles((theme) => ({
     color:"#fff",
     background:`linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.secondary})`,
     borderRadius:"0px 10px 10px 10px",
+  },
+  avatar:{
+    width:30,
+    height:30,
+    marginRight:8,
   }
+
 }));
 
 function Message(props){
   const classes = useStyles();
 
   return(
-    <Grid container alignItems="center" spacing={2}>
+    <Grid container alignItems="center">
 
       <Grid item>
-        <img src={props.image} width="30px" height="30px"></img>
+        <Avatar className={classes.avatar} src={props.image}></Avatar>
       </Grid>
 
       <Grid item direction="row">

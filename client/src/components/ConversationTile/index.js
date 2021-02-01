@@ -1,22 +1,31 @@
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  title:{
+    padding:9,
+    overflow:"hidden"
+  }
+}));
 
 function ConversationTile(props){
+  const classes = useStyles();
 
   return(
-  <Grid container spacing={2}>
-    <Grid item xs={2}>
+  <Grid container>
+    <Grid item>
       <img src={props.image} width="44px" height="44px"/>
     </Grid>
     
-    <Grid item container xs={9}>
-      <Grid item>
+    <Grid item container direction="column" xs={8} className={classes.title}>
+      <Grid item xs>
         {props.title}
       </Grid>
-      <Grid item>
+      <Grid item xs>
         {props.message}
       </Grid>
     </Grid>
-    <Grid item xs={1}>
+
+    <Grid item flexGrow={1}>
       2
     </Grid>
   </Grid>
