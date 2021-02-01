@@ -3,18 +3,21 @@ import { useContext } from "react";
 import ConversationTile from "../ConversationTile";
 import usePullConversations from "../usePullConversations";
 import {ChatroomContext} from "../../utils/ChatroomContext";
+import utils from "../../utils/API";
 
 // Previous Conversation Well Creation
 function ConversationWell() {
   // Set up constatnts
   const { conversations, isLoading } = usePullConversations();
-  const { conversation, setConversation, participants, messages} = useContext(ChatroomContext);
+  const { conversation, setConversation, participants, setParticipants, messages, setMessages} = useContext(ChatroomContext);
 
   // Handle updating conversation
-  function changeConversation(id){
-    console.log(conversation);
-    console.log("Selected",id)
+  async function changeConversation(id){
     setConversation(id);
+    const data = await utils.GetConversation({id});
+    console.log(data);
+    setConversation(data.conversation);
+    setMessages(data.messages)
   }
 
   return (

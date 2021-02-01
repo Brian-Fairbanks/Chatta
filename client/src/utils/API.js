@@ -49,4 +49,19 @@ export default {
     const data = await response.json();
     return {status:response.status, ...data};
   },
+
+  // Retrieves all information about a passed conversation
+  GetConversation:
+  async function (userData) {
+    // set up fetch requests
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Accept: 'application/json',
+      },
+    };
+    const response = await fetch("/api/conversation/"+userData.id, requestOptions);
+    const data = await response.json();
+    return {status:response.status, ...data};
+  },
 };

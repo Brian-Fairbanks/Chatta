@@ -17,7 +17,9 @@ import { ChatroomContext } from "./utils/ChatroomContext";
 function App() {
   // validate user in the beginning
   const { user, setUser, isLoading } = useFindUser();
-  const [conversation, setConversation] = useState("No conversation selected.")
+  const [conversation, setConversation] = useState("No conversation selected.");
+  const [messages, setMessages] = useState([]);
+  const [participants, setParticipants] = useState([]);
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -32,8 +34,16 @@ function App() {
           <Route exact path="/login">
             <UserAuth type="login" />{" "}
           </Route>
-
-          <ChatroomContext.Provider value={{conversation, setConversation}}>
+          <ChatroomContext.Provider
+            value={{
+              conversation,
+              setConversation,
+              messages,
+              setMessages,
+              participants,
+              setParticipants,
+            }}
+          >
             <Route path="/chat">
               <ProtectedRoute component={ChatPage} />
             </Route>
