@@ -11,7 +11,6 @@ const useStyles = makeStyles({
     width: "100vw",
     maxHeight: "100vh",
     minHeight: "100vh",
-    overflowY: "scroll",
   },
   scrollContent: {
     position: "absolute",
@@ -19,7 +18,7 @@ const useStyles = makeStyles({
     right: 0,
     top: 0,
     bottom: 0,
-    overflow: "scroll",
+    overflowY: "auto",
   },
   scrollWrapper: {
     position: "relative",
@@ -34,11 +33,15 @@ function ChatPage() {
   return (
     <Grid container className={classes.fullPage}>
       <Grid item xs={3}>
-        <Box p={3}>
+        <Box px={3} height="100%" display="flex" flexDirection="column">
           {/* <SelfSettings/> */}
           <Typography variant="h1">Chats</Typography>
-          <FriendSearch />
-          <ConversationWell />
+          <Box flexGrow={1} className={classes.scrollWrapper}>
+            <Box className={classes.scrollContent}>
+              <FriendSearch />
+              <ConversationWell />
+            </Box>
+          </Box>
         </Box>
       </Grid>
       <Grid container item xs={9} height="100%" direction="column">
