@@ -1,5 +1,8 @@
 import { Box, Grid, Typography, makeStyles, Avatar } from "@material-ui/core";
 
+
+//   const { user, isLoading } = useContext(UserContext);
+
 const useStyles = makeStyles((theme) => ({
   content:{
     padding:9,
@@ -7,6 +10,15 @@ const useStyles = makeStyles((theme) => ({
     background:`linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.secondary})`,
     borderRadius:"0px 10px 10px 10px",
   },
+
+  selfContent:{
+    padding:9,
+    background: theme.palette.primary.selfLight,
+    color: theme.palette.primary.selfDark,
+    borderRadius:"10px 10px 0px 10px",
+    textAlign:"right",
+  },
+
   avatar:{
     width:30,
     height:30,
@@ -19,17 +31,20 @@ function Message(props){
   const classes = useStyles();
 
   return(
-    <Grid container alignItems="center">
+    <Grid container alignItems="center" direction={props.isSelf?"row-reverse":"row"}>
 
+      {
+      props.isSelf?"":
       <Grid item>
         <Avatar className={classes.avatar} src={props.image}></Avatar>
       </Grid>
+      }
 
       <Grid item>
         <Box>
-  <Typography variant="subtitle2">{props.username} {props.timeStamp}</Typography>
+  <Typography variant="subtitle2">{props.isSelf?"":props.username} {props.timeStamp}</Typography>
         </Box>
-        <Box className={classes.content}>
+        <Box className={props.isSelf?classes.selfContent:classes.content}>
           {props.content}
         </Box>
       </Grid>

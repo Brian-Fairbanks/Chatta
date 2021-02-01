@@ -9,7 +9,7 @@ import utils from "../../utils/API";
 function ConversationWell() {
   // Set up constatnts
   const { conversations, isLoading } = usePullConversations();
-  const { conversation, setConversation, participants, setParticipants, messages, setMessages} = useContext(ChatroomContext);
+  const { setConversation, setParticipants, setMessages} = useContext(ChatroomContext);
 
   // Handle updating conversation
   async function changeConversation(id){
