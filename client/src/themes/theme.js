@@ -48,7 +48,9 @@ export const theme = createMuiTheme({
     primary: {
       main: "#3A8DFF",
       secondary: "#86B9FF",
-      faded: "#99A9C4" 
+      faded: "#99A9C4",
+      selfLight: "#F4F6FA",
+      selfDark: "#91A3C0",
     },
   },
 });

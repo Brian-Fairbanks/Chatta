@@ -25,10 +25,12 @@ function ChatPage(){
           </Box>
         </Grid>
         <Grid container item xs={9} direction="column">
-          <Box flexGrow={1}>
+          <Box flexGrow={1} px={12}>
             <MessageWell/>
           </Box>
-          <PostMessageForm/>
+          <Box px={12}>
+            <PostMessageForm/>
+          </Box>
         </Grid>
       </Grid>
     </Box>
