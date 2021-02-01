@@ -24,9 +24,17 @@ module.exports = {
         conversation: req.params.id,
       }).sort({ timestamp: 1 });
 
+      const userData = await Promise.all(conversation.participants.map( async function (member){
+        const user = await db.User.findOne({_id:member});
+        return(
+          {_id:member, username:user.username, image:user.image}
+          );
+      }))
+
       res.json({
         conversation,
         messages,
+        participants:userData
       });
     } catch (err) {
       res.status(422).json(err);

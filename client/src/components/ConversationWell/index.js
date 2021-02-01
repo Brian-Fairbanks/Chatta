@@ -18,6 +18,7 @@ function ConversationWell() {
     console.log(data);
     setConversation(data.conversation);
     setMessages(data.messages)
+    setParticipants(data.participants);
   }
 
   return (

@@ -18,7 +18,7 @@ function MessageWell(){
         <Typography variant={"h1"}>{conversation.title||conversation._id}</Typography>
         {
           messages.map( message => {
-            return(<div>message.content</div>)
+            return(<div>{message.content}</div>)
           })
         }
       </Box>
