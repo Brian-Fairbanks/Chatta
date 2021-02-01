@@ -14,6 +14,7 @@ import utils from "../../utils/API";
 const useStyles = makeStyles({
   form: {
     width: "100%",
+    marginBottom:30,
   },
   messageEditor: {
     "&::placeholder": {

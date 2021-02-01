@@ -4,6 +4,10 @@ import { Box, Grid, Typography, makeStyles, Avatar } from "@material-ui/core";
 //   const { user, isLoading } = useContext(UserContext);
 
 const useStyles = makeStyles((theme) => ({
+  message:{
+    marginTop:60,
+  },
+
   content:{
     padding:9,
     color:"#fff",
@@ -31,7 +35,7 @@ function Message(props){
   const classes = useStyles();
 
   return(
-    <Grid container alignItems="center" direction={props.isSelf?"row-reverse":"row"}>
+    <Grid container className={classes.message} alignItems="center" direction={props.isSelf?"row-reverse":"row"}>
 
       {
       props.isSelf?"":
@@ -45,7 +49,7 @@ function Message(props){
   <Typography variant="subtitle2">{props.isSelf?"":props.username} {props.timeStamp}</Typography>
         </Box>
         <Box className={props.isSelf?classes.selfContent:classes.content}>
-          {props.content}
+          <Typography variant="subtitle1">{props.content}</Typography>
         </Box>
       </Grid>
     </Grid>

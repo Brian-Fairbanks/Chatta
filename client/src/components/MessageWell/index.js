@@ -1,5 +1,5 @@
-import { Box, Typography } from "@material-ui/core";
-import { useContext, useEffect } from "react";
+import { Box } from "@material-ui/core";
+import { useContext } from "react";
 import { ChatroomContext } from "../../utils/ChatroomContext";
 import {UserContext} from "../../utils/UserContext";
 import Message from "../Message";
@@ -10,7 +10,6 @@ function MessageWell() {
 
   return (
     <Box>
-      <Typography variant="h1">Message Well</Typography>
       {!conversation ? (
         "No conversation selected."
       ) : (
