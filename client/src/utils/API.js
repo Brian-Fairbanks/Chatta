@@ -69,6 +69,7 @@ export default {
     return { status: response.status, ...data };
   },
 
+  // Post a message to a chatroom
   postMessage: async function (userData) {
     // set up fetch requests
     const requestOptions = {
@@ -79,10 +80,21 @@ export default {
       },
       body: JSON.stringify(userData),
     };
-    const response = await fetch(
-      "/api/message",
-      requestOptions
-    );
+    const response = await fetch("/api/message", requestOptions);
+    const data = await response.json();
+    return { status: response.status, ...data };
+  },
+
+  // Retrieves all information about a passed conversation
+  getUser: async function (userData) {
+    // set up fetch requests
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    };
+    const response = await fetch("/api/user/" + userData.id, requestOptions);
     const data = await response.json();
     return { status: response.status, ...data };
   },

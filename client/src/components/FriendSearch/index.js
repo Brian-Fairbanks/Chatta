@@ -1,41 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Box, fade, makeStyles } from "@material-ui/core";
-import InputBase from '@material-ui/core/InputBase';
+import InputBase from "@material-ui/core/InputBase";
 import UserTile from "../UserTile";
 import API from "../../utils/API";
 import useDebounce from "../../utils/debounce";
+import { ChatroomContext } from "../../utils/ChatroomContext";
 
 const useStyles = makeStyles((theme) => ({
   searchContent: {
-    color:theme.palette.primary.faded,
-    fontWeight:"600",
-    paddingLeft:26,
+    color: theme.palette.primary.faded,
+    fontWeight: "600",
+    paddingLeft: 26,
   },
   search: {
-    color:theme.palette.primary.faded,
+    color: theme.palette.primary.faded,
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.primary.main, 0.15),
     "&:hover": {
       backgroundColor: fade(theme.palette.primary.main, 0.25),
     },
-    margin:10,
+    margin: 10,
     marginRight: 0,
     marginLeft: 0,
     width: "100%",
-    paddingTop:10,
-    paddingBottom:10,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   searchIcon: {
-    padding: theme.spacing(0, .5),
-    height: '100%',
-    position: 'absolute',
-    top:0,
-    left:0,
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: theme.spacing(0, 0.5),
+    height: "100%",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 
@@ -45,12 +46,25 @@ function FriendSearch() {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
+  const { setConversation, setParticipants, setMessages } = useContext(
+    ChatroomContext
+  );
 
+  // set pu data for the conversation
+  async function changeConversation(id) {
+    const data = await API.getUser({ id });
+    console.log(data);
+    setConversation("TBD");
+    setMessages([]);
+    setParticipants([data.dbModel]);
+  }
+
+  // Handle updating the sate for the search field
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  // Debounce 
+  // Debounce
   const debounceSearchTerm = useDebounce(searchTerm, 1000);
 
   useEffect(() => {
@@ -59,7 +73,9 @@ function FriendSearch() {
       setSearchResults(data.dbModel);
     }
     if (searchTerm) grabUsers();
-    else{setSearchResults();}
+    else {
+      setSearchResults();
+    }
   }, [debounceSearchTerm]);
 
   return (
@@ -79,9 +95,18 @@ function FriendSearch() {
       {!searchResults
         ? ""
         : searchResults.map((user) => {
-            return <UserTile image={user.image} username={user.username} />;
+            return (
+              <Box
+                key={user._id}
+                onClick={() => {
+                  changeConversation(user._id);
+                }}
+              >
+                <UserTile image={user.image} username={user.username} />
+              </Box>
+            );
           })}
-          <hr/>
+      <hr />
     </Box>
   );
 }
