@@ -44,7 +44,14 @@ function PostMessageForm() {
     conversation: "",
     content: "",
   });
-  const { conversation } = useContext(ChatroomContext);
+  const {
+    conversation,
+    setConversation,
+    messages,
+    setMessages,
+    participants,
+    setParticipants,
+  } = useContext(ChatroomContext);
 
   // clear messages and change converstaion when a user clicks another conversation page
   useEffect(() => {
@@ -56,6 +63,31 @@ function PostMessageForm() {
     if (event) {
       event.preventDefault();
     }
+    // if this is the first message of a conversation, create the conversation and post it, then update the conversation settings
+    if (!conversation._id) {
+      //create a new conversation
+      const participantData = await participants.map((user) => user._id);
+      const conversationID = await utils.createConversation({
+        participants: participantData,
+      });
+      // post new message to this conversation
+      const data = await utils.postMessage({
+        conversation: conversationID._id,
+        content: userSubmission.content,
+      });
+      setUserSubmission((prevData) => {
+        return { ...prevData, content: "" };
+      });
+      // update page as if opening existing conversation
+      const conversationData = await utils.GetConversation({
+        id: conversationID._id,
+      });
+      setConversation(conversationData.conversation);
+      setMessages(conversationData.messages);
+      setParticipants(conversationData.participants);
+      return;
+    }
+    //otherwise, just post it
     const data = await utils.postMessage(userSubmission);
     // clear message
     setUserSubmission((prevData) => {
@@ -101,7 +133,11 @@ function PostMessageForm() {
             className={classes.messageEditor}
             name="content"
             id="standard-basic-fname"
-            placeholder="Type something..."
+            placeholder={
+              conversation && !conversation._id
+                ? "Start a new conversation!"
+                : "Type something..."
+            }
             value={userSubmission.content}
             onChange={handleInputChange}
             onKeyUp={onEnterPress}

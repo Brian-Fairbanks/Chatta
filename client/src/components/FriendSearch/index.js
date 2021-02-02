@@ -53,8 +53,7 @@ function FriendSearch() {
   // set pu data for the conversation
   async function changeConversation(id) {
     const data = await API.getUser({ id });
-    console.log(data);
-    setConversation("TBD");
+    setConversation(id);
     setMessages([]);
     setParticipants([data.dbModel]);
   }

@@ -15,7 +15,6 @@ function ConversationWell() {
 
   // Handle updating conversation
   async function changeConversation(id) {
-    setConversation(id);
     const data = await utils.GetConversation({ id });
     setConversation(data.conversation);
     setMessages(data.messages);
