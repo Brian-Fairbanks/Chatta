@@ -7,22 +7,38 @@ import { theme } from "./themes/theme";
 // import LandingPage from "./pages/Landing";
 
 import "./App.css";
+import ChatPage from "./pages/Chat";
 import UserAuth from "./components/UserAuth";
+import ProtectedRoute from "./components/ProtectedRoute";
+import useFindUser from "./components/useFindUser";
+import { UserContext } from "./utils/UserContext";
+import { ChatroomContext } from "./utils/ChatroomContext";
+import useConversationComponent from "./components/useConversationContext";
 
 function App() {
+  // validate user in the beginning
+  const { user, setUser, isLoading } = useFindUser();
+  const chatContextData = useConversationComponent();
+
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <Route exact path="/">
-          {" "}
-          <Redirect to="/signup" />
-        </Route>
-        <Route exact path="/signup">
-          <UserAuth type="signup" />
-        </Route>
-        <Route exact path="/login">
-          <UserAuth type="login" />{" "}
-        </Route>
+        <UserContext.Provider value={{ user, setUser, isLoading }}>
+          <Route exact path="/">
+            <Redirect to="/signup" />
+          </Route>
+          <Route exact path="/signup">
+            <UserAuth type="signup" />
+          </Route>
+          <Route exact path="/login">
+            <UserAuth type="login" />{" "}
+          </Route>
+          <ChatroomContext.Provider value={chatContextData}>
+            <Route path="/chat">
+              <ProtectedRoute component={ChatPage} />
+            </Route>
+          </ChatroomContext.Provider>
+        </UserContext.Provider>
       </BrowserRouter>
     </MuiThemeProvider>
   );
