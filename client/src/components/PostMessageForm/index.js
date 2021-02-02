@@ -14,7 +14,7 @@ import utils from "../../utils/API";
 const useStyles = makeStyles({
   form: {
     width: "100%",
-    marginBottom:30,
+    marginBottom: 30,
   },
   messageEditor: {
     "&::placeholder": {
@@ -38,6 +38,7 @@ const useStyles = makeStyles({
 });
 
 function PostMessageForm() {
+  // set up constants
   const classes = useStyles();
   const [userSubmission, setUserSubmission] = useState({
     conversation: "",
@@ -45,8 +46,9 @@ function PostMessageForm() {
   });
   const { conversation } = useContext(ChatroomContext);
 
+  // clear messages and change converstaion when a user clicks another conversation page
   useEffect(() => {
-    setUserSubmission({ conversation:conversation._id, content:"" });
+    setUserSubmission({ conversation: conversation._id, content: "" });
   }, [conversation]);
 
   // handleSubmission
@@ -55,6 +57,10 @@ function PostMessageForm() {
       event.preventDefault();
     }
     const data = await utils.postMessage(userSubmission);
+    // clear message
+    setUserSubmission((prevData) => {
+      return { ...prevData, content: "" };
+    });
   }
 
   // function to handle submitting the form when pressing enter, or adding new lines with alt/ctrl/shift + enter
