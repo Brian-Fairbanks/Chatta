@@ -19,10 +19,9 @@ router.use(
   '/auth',
   passport.authenticate('jwt', { session: false }),
   function (req, res, next) {
-
-    const {username, _id, firstName} = req.user
-    const user = {username, _id, firstName} 
-    res.status(200).send({ message: 'You may connect to this protected route', user})
+    const { username, _id, firstName } = req.user
+    const user = { username, _id, firstName }
+    res.status(200).send({ message: 'You may connect to this protected route', user })
   }
 )
 

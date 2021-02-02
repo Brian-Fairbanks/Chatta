@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 
@@ -13,13 +13,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import useFindUser from "./components/useFindUser";
 import { UserContext } from "./utils/UserContext";
 import { ChatroomContext } from "./utils/ChatroomContext";
+import useConversationComponent from "./components/useConversationContext";
 
 function App() {
   // validate user in the beginning
   const { user, setUser, isLoading } = useFindUser();
-  const [conversation, setConversation] = useState("No conversation selected.");
-  const [messages, setMessages] = useState([]);
-  const [participants, setParticipants] = useState([]);
+  const chatContextData = useConversationComponent();
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -34,16 +33,7 @@ function App() {
           <Route exact path="/login">
             <UserAuth type="login" />{" "}
           </Route>
-          <ChatroomContext.Provider
-            value={{
-              conversation,
-              setConversation,
-              messages,
-              setMessages,
-              participants,
-              setParticipants,
-            }}
-          >
+          <ChatroomContext.Provider value={chatContextData}>
             <Route path="/chat">
               <ProtectedRoute component={ChatPage} />
             </Route>

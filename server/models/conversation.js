@@ -16,14 +16,14 @@ const conversationSchema = new Schema({
   },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   participants: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ],
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
   lastMessage: {
-      message_id: {type: mongoose.Schema.Types.ObjectId,ref: 'Message'},
-      content: {type: String}
+    message_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Message' },
+    content: { type: String }
   },
   lastUpdate: {
     type: Date,
