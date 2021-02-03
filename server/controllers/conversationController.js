@@ -48,7 +48,10 @@ module.exports = {
             lastUpdate: conversation.lastUpdate,
             __v: conversation.__v,
             image,
-            title: title.join(", "),
+            title:
+              title.length > 0
+                ? title.join(", ")
+                : `${req.user.username} (you)`,
             participants: userData,
           };
         })
