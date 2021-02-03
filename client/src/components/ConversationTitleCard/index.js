@@ -34,18 +34,19 @@ export default function ConversationTitleCard() {
           flexWrap="nowrap"
           xs={11}
         >
-          {participants
-            .filter((participant) => participant._id !== user._id)
-            .map((participant) => {
-              return (
-                <Box display="flex">
-                  <Typography variant="h5" className={classes.title}>
-                    {participant.username}
-                  </Typography>
-                  <Typography variant="subtitle2">offline</Typography>
-                </Box>
-              );
-            })}
+          {conversation.title ||
+            participants
+              .filter((participant) => participant._id !== user._id)
+              .map((participant) => {
+                return (
+                  <Box display="flex">
+                    <Typography variant="h5" className={classes.title}>
+                      {participant.username}
+                    </Typography>
+                    <Typography variant="subtitle2">offline</Typography>
+                  </Box>
+                );
+              })}
         </Grid>
         <Grid item container xs={1} justify="flex-end">
           <i className={`${classes.themeColor} fas fa-ellipsis-h`}></i>
