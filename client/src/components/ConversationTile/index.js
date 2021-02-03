@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   title: {
-    overflow: "hidden",
-    textOverflow: "ellipsis !important",
-    overflowWrap: "unset",
+    width: "100%",
     whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   conImg: {
     width: 44,
@@ -33,27 +33,45 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 8,
     borderRadius: "100%",
   },
+
+  flexGrow: {
+    display: "flex",
+    flexBasis: 0,
+    minWidth: 0,
+    overflow: "hidden",
+    flexGrow: 1,
+  },
+
+  flexFixed: {
+    flexBasis: 0,
+  },
 }));
 
 function ConversationTile(props) {
   const classes = useStyles();
 
   return (
-    <Grid container className={classes.conversationTile}>
-      <Grid item xs={2}>
+    <Grid container direction="row" className={classes.conversationTile}>
+      <Grid item className={classes.flexFixed}>
         <Avatar src={props.image} className={classes.conImg} />
       </Grid>
 
-      <Grid item container direction="column" xs={8}>
-        <Grid item xs className={classes.title}>
-          <Typography variant="h6">{props.title}</Typography>
-        </Grid>
-        <Grid item xs className={classes.title}>
-          <Typography variant="subtitle1">{props.message}</Typography>
-        </Grid>
+      <Grid item container direction="column" className={classes.flexGrow}>
+        <Typography variant="h6" className={classes.title}>
+          {props.title}
+        </Typography>
+        <Typography variant="subtitle1" className={classes.title}>
+          {props.message}
+        </Typography>
       </Grid>
 
-      <Grid item container xs={1} justify="flex-end" alignItems="center">
+      <Grid
+        item
+        container
+        className={classes.flexFixed}
+        justify="flex-end"
+        alignItems="center"
+      >
         <Box className={classes.notify}>2</Box>
       </Grid>
     </Grid>
