@@ -5,6 +5,7 @@ import ConversationWell from "../components/ConversationWell";
 import MessageWell from "../components/MessageWell";
 import PostMessageForm from "../components/PostMessageForm";
 import ConversationTitleCard from "../components/ConversationTitleCard";
+import SelfSettings from "../components/SelfSettings";
 // import API from "../../utils/API";
 
 const useStyles = makeStyles({
@@ -35,8 +36,8 @@ function ChatPage() {
     <Grid container className={classes.fullPage}>
       <Grid item xs={3}>
         <Box px={3} height="100%" display="flex" flexDirection="column">
-          {/* <SelfSettings/> */}
-          <Typography variant="h1">Chats</Typography>
+          <SelfSettings />
+          <Typography variant="h5">Chats</Typography>
           <Box flexGrow={1} className={classes.scrollWrapper}>
             <Box className={classes.scrollContent}>
               <FriendSearch />
