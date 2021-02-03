@@ -2,6 +2,7 @@ import { Box, Grid, makeStyles, Typography } from "@material-ui/core";
 import { useContext } from "react";
 import { theme } from "../../themes/theme";
 import { ChatroomContext } from "../../utils/ChatroomContext";
+import { UserContext } from "../../utils/UserContext";
 
 const useStyles = makeStyles({
   shadowBox: {
@@ -19,7 +20,8 @@ const useStyles = makeStyles({
 
 export default function ConversationTitleCard() {
   const classes = useStyles();
-  const { conversation } = useContext(ChatroomContext);
+  const { conversation, participants } = useContext(ChatroomContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Box className={classes.shadowBox}>
@@ -32,10 +34,18 @@ export default function ConversationTitleCard() {
           flexWrap="nowrap"
           xs={11}
         >
-          <Typography variant="h5" className={classes.title}>
-            Conversation Title
-          </Typography>
-          <Typography variant="subtitle2">offline</Typography>
+          {participants
+            .filter((participant) => participant._id !== user._id)
+            .map((participant) => {
+              return (
+                <Box display="flex">
+                  <Typography variant="h5" className={classes.title}>
+                    {participant.username}
+                  </Typography>
+                  <Typography variant="subtitle2">offline</Typography>
+                </Box>
+              );
+            })}
         </Grid>
         <Grid item container xs={1} justify="flex-end">
           <i className={`${classes.themeColor} fas fa-ellipsis-h`}></i>
