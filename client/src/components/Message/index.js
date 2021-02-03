@@ -46,7 +46,7 @@ function Message(props) {
       )}
 
       <Grid item>
-        <Box>
+        <Box textAlign={props.isSelf ? "right" : "left"}>
           <Typography variant="subtitle2">
             {props.isSelf ? "" : props.username} {props.timeStamp}
           </Typography>
