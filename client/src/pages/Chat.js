@@ -37,7 +37,7 @@ function ChatPage() {
       <Grid item xs={3}>
         <Box px={3} height="100%" display="flex" flexDirection="column">
           <SelfSettings />
-          <Typography variant="h5">Chats</Typography>
+          <Typography variant="h3">Chats</Typography>
           <Box flexGrow={1} className={classes.scrollWrapper}>
             <Box className={classes.scrollContent}>
               <FriendSearch />

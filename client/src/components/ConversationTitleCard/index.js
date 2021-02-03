@@ -40,7 +40,7 @@ export default function ConversationTitleCard() {
               .map((participant) => {
                 return (
                   <Box display="flex">
-                    <Typography variant="h5" className={classes.title}>
+                    <Typography variant="h3" className={classes.title}>
                       {participant.username}
                     </Typography>
                     <Typography variant="subtitle2">offline</Typography>

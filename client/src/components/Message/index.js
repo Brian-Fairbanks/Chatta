@@ -52,7 +52,7 @@ function Message(props) {
           </Typography>
         </Box>
         <Box className={props.isSelf ? classes.selfContent : classes.content}>
-          <Typography variant="subtitle1">{props.content}</Typography>
+          <Typography variant="body1">{props.content}</Typography>
         </Box>
       </Grid>
     </Grid>

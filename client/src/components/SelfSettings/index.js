@@ -28,7 +28,7 @@ export default function SelfSettings() {
           xs={11}
         >
           <Avatar className={classes.avatar} src={user.image}></Avatar>
-          <Typography variant="subtitle1">{user.username}</Typography>
+          <Typography variant="h5">{user.username}</Typography>
         </Grid>
         {/* settings aligns to far right */}
         <Grid item container xs={1} justify="flex-end">
