@@ -1,6 +1,17 @@
 import { Box, Grid, makeStyles, Avatar, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  conversationTile: {
+    padding: 2,
+    paddingTop: 7,
+    paddingBottom: 7,
+    marginTop: 7,
+    marginBottom: 7,
+    borderRadius: 3,
+    "&:hover": {
+      background: theme.palette.primary.faded,
+    },
+  },
   title: {
     overflow: "hidden",
     textOverflow: "ellipsis !important",
@@ -12,13 +23,23 @@ const useStyles = makeStyles((theme) => ({
     height: 44,
     marginRight: 8,
   },
+  notify: {
+    background: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    fontWeight: 600,
+    fontSize: 12,
+    padding: 2,
+    paddingLeft: 8,
+    paddingRight: 8,
+    borderRadius: "100%",
+  },
 }));
 
 function ConversationTile(props) {
   const classes = useStyles();
 
   return (
-    <Grid container>
+    <Grid container className={classes.conversationTile}>
       <Grid item xs={2}>
         <Avatar src={props.image} className={classes.conImg} />
       </Grid>
@@ -32,7 +53,9 @@ function ConversationTile(props) {
         </Grid>
       </Grid>
 
-      <Grid item>2</Grid>
+      <Grid item container xs={1} justify="flex-end" alignItems="center">
+        <Box className={classes.notify}>2</Box>
+      </Grid>
     </Grid>
   );
 }
