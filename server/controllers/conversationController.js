@@ -36,9 +36,12 @@ module.exports = {
             ));
           // set up image : use conversation image, unless it is the default.  If it is not, use the first participants image.  If no participants, revert back to default
           const image =
-            conversation.image !== ""
+            conversation.image !==
+            "https://3k67ko48fxrx2usj0z384y49-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/anonymous-user-ico-300x300-200x200.png" // the default image
               ? conversation.image
-              : userData[0].image || conversation.image;
+              : userData[0]
+              ? userData[0].image
+              : conversation.image;
 
           // Return conversation data with additional changes
           return {
