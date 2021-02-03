@@ -18,15 +18,8 @@ export default function SelfSettings() {
 
   return (
     <Box className={classes.shadowBox} my={3}>
-      <Grid container direction="row" alignItems="center" flexWrap="nowrap">
-        <Grid
-          item
-          container
-          direction="row"
-          alignItems="center"
-          flexWrap="nowrap"
-          xs={11}
-        >
+      <Grid container direction="row" alignItems="center">
+        <Grid item container direction="row" alignItems="center" xs={11}>
           <Avatar className={classes.avatar} src={user.image}></Avatar>
           <Typography variant="h5">{user.username}</Typography>
         </Grid>

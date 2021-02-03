@@ -25,21 +25,14 @@ export default function ConversationTitleCard() {
 
   return (
     <Box className={classes.shadowBox}>
-      <Grid container direction="row" alignItems="center" flexWrap="nowrap">
-        <Grid
-          item
-          container
-          direction="row"
-          alignItems="center"
-          flexWrap="nowrap"
-          xs={11}
-        >
+      <Grid container direction="row" alignItems="center">
+        <Grid item container direction="row" alignItems="center" xs={11}>
           {conversation.title ||
             participants
               .filter((participant) => participant._id !== user._id)
               .map((participant) => {
                 return (
-                  <Box display="flex">
+                  <Box display="flex" key={participant._id}>
                     <Typography variant="h3" className={classes.title}>
                       {participant.username}
                     </Typography>
