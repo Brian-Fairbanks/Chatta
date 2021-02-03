@@ -11,6 +11,11 @@ export const theme = createMuiTheme({
       fontSize: 32,
       fontWeight: 700,
     },
+    h5: {
+      fontFamily: ["Open Sans", "Arial", "sans-serif"],
+      fontSize: 20,
+      fontWeight: 600,
+    },
     h6: {
       fontFamily: ["Open Sans", "Arial", "sans-serif"],
       fontSize: 26,
@@ -22,9 +27,9 @@ export const theme = createMuiTheme({
     subtitle1: {
       display: "inline-block",
     },
-    subtitle2:{
-      color:"#99A9C4",
-    }
+    subtitle2: {
+      color: "#99A9C4",
+    },
   },
 
   overrides: {

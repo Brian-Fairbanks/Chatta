@@ -4,6 +4,7 @@ import FriendSearch from "../components/FriendSearch";
 import ConversationWell from "../components/ConversationWell";
 import MessageWell from "../components/MessageWell";
 import PostMessageForm from "../components/PostMessageForm";
+import ConversationTitleCard from "../components/ConversationTitleCard";
 // import API from "../../utils/API";
 
 const useStyles = makeStyles({
@@ -45,7 +46,7 @@ function ChatPage() {
         </Box>
       </Grid>
       <Grid container item xs={9} height="100%" direction="column">
-        <Typography variant="h1">Message Well</Typography>
+        <ConversationTitleCard />
         <Box flexGrow={1} className={classes.scrollWrapper}>
           <Box className={classes.scrollContent} px={5}>
             <MessageWell />
