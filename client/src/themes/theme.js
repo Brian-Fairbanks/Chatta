@@ -7,12 +7,10 @@ export const theme = createMuiTheme({
     fontWeight: "600",
     h1: {
       lineHeight: "3em",
-      fontFamily: ["Open Sans", "Arial", "sans-serif"],
       fontSize: 32,
       fontWeight: 700,
     },
     h2: {
-      fontFamily: ["Open Sans", "Arial", "sans-serif"],
       fontSize: 26,
       textAlign: "center",
       padding: "20%",
@@ -20,24 +18,20 @@ export const theme = createMuiTheme({
       color: "#ffffff",
     },
     h3: {
-      fontFamily: ["Open Sans", "Arial", "sans-serif"],
       fontSize: 20,
       fontWeight: 600,
     },
 
     h5: {
-      fontFamily: ["Open Sans", "Arial", "sans-serif"],
       fontSize: 16,
       fontWeight: 600,
     },
     h6: {
-      fontFamily: ["Open Sans", "Arial", "sans-serif"],
       fontSize: 14,
       fontWeight: 600,
     },
 
     subtitle1: {
-      fontFamily: ["Open Sans", "Arial", "sans-serif"],
       fontSize: 12,
       fontWeight: 500,
     },
@@ -52,6 +46,7 @@ export const theme = createMuiTheme({
       fontSize: 14,
       color: "#99A9C4",
     },
+    button: {},
   },
 
   overrides: {
