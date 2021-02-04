@@ -4,28 +4,19 @@ const db = require("../models");
 module.exports = {
   findUsers: async function (req, res) {
     try {
+      // Gather all conversations, and their participants
       const data = await db.Conversation.find({
         participants: req.user._id,
-      });
+      }).populate("participants");
 
-      const dataWithParticipants = await Promise.all(
+      // Add extra data, usefull for display
+      const extraData = await Promise.all(
         data.map(async function (conversation) {
           //Filter self out of participants
-          const otherUsers = await conversation.participants.filter(
-            (user) => user.toString() !== req.user._id.toString()
+          const userData = await conversation.participants.filter(
+            (user) => user._id.toString() !== req.user._id.toString()
           );
-
-          // get other Participant data
-          const userData = await Promise.all(
-            otherUsers.map(async function (member) {
-              const user = await db.User.findOne({ _id: member });
-              return {
-                _id: member,
-                username: user.username,
-                image: user.image,
-              };
-            })
-          );
+          console.log(userData);
           // set up a title as either conversation.title, or a list of participating users
           const title =
             conversation.title ||
@@ -48,17 +39,17 @@ module.exports = {
             owner: conversation.owner,
             lastUpdate: conversation.lastUpdate,
             __v: conversation.__v,
+            participants: conversation.participants,
             image,
             title:
               title.length > 0
                 ? title.join(", ")
                 : `${req.user.username} (you)`,
-            participants: userData,
           };
         })
       );
       // console.log(dataWithParticipants);
-      res.json({ dbModel: dataWithParticipants });
+      res.json({ dbModel: extraData });
     } catch (err) {
       res.status(422).json(err);
     }
