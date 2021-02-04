@@ -34,14 +34,12 @@ module.exports = {
                 return user.username;
               })
             ));
-          // set up image : use conversation image, unless it is the default.  If it is not, use the first participants image.  If no participants, revert back to default
-          const image =
-            conversation.image !==
-            "https://3k67ko48fxrx2usj0z384y49-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/anonymous-user-ico-300x300-200x200.png" // the default image
-              ? conversation.image
-              : userData[0]
-              ? userData[0].image
-              : conversation.image;
+          // set up image : use conversation image if one exists.  Otherwise, try and use the user[0]s image.  Otherwise, return null and let the Avatar handle it.
+          const image = conversation.image
+            ? conversation.image
+            : userData[0]
+            ? userData[0].image
+            : null;
 
           // Return conversation data with additional changes
           return {
