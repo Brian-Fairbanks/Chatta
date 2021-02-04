@@ -49,7 +49,7 @@ function UserAuth(props) {
       <UserPaneSplash />
       <Box className={classes.contentPane}>
         <Box className={classes.pageHeader}>
-          <Typography variant="body1">
+          <Typography variant="body1" display="inline">
             {type === "login"
               ? "Don't have an account?"
               : "Already have an account?"}
