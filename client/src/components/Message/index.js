@@ -48,7 +48,11 @@ function Message(props) {
         ""
       ) : (
         <Grid item>
-          <Avatar className={classes.avatar} src={props.image}></Avatar>
+          <Avatar
+            className={classes.avatar}
+            src={props.image}
+            alt={`${props.username} avatar`}
+          ></Avatar>
         </Grid>
       )}
 

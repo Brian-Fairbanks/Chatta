@@ -20,7 +20,11 @@ export default function SelfSettings() {
     <Box className={classes.shadowBox} my={3}>
       <Grid container direction="row" alignItems="center">
         <Grid item container direction="row" alignItems="center" xs={11}>
-          <Avatar className={classes.avatar} src={user.image}></Avatar>
+          <Avatar
+            className={classes.avatar}
+            src={user.image}
+            alt={`${user.username} avatar`}
+          ></Avatar>
           <Typography variant="h5">{user.username}</Typography>
         </Grid>
         {/* settings aligns to far right */}

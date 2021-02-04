@@ -53,7 +53,11 @@ function ConversationTile(props) {
   return (
     <Grid container direction="row" className={classes.conversationTile}>
       <Grid item className={classes.flexFixed}>
-        <Avatar src={props.image} className={classes.conImg} />
+        <Avatar
+          src={props.image}
+          className={classes.conImg}
+          alt={`${props.title} avatar`}
+        />
       </Grid>
 
       <Grid item container direction="column" className={classes.flexGrow}>
