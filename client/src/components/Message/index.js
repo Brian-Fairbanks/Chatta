@@ -29,6 +29,13 @@ const useStyles = makeStyles((theme) => ({
 
 function Message(props) {
   const classes = useStyles();
+  console.log(props.timeStamp);
+  // format timestamp
+  const timestamp = new Date(props.timeStamp);
+  const fmtTimeStamp = new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(timestamp);
 
   return (
     <Grid
@@ -48,7 +55,7 @@ function Message(props) {
       <Grid item>
         <Box textAlign={props.isSelf ? "right" : "left"}>
           <Typography variant="subtitle2">
-            {props.isSelf ? "" : props.username} {props.timeStamp}
+            {props.isSelf ? "" : props.username} {fmtTimeStamp}
           </Typography>
         </Box>
         <Box className={props.isSelf ? classes.selfContent : classes.content}>

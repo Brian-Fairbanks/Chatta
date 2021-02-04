@@ -26,6 +26,11 @@ const useStyles = makeStyles({
     position: "relative",
     overflow: "hidden",
   },
+  leftPanel: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
 });
 
 function ChatPage() {
@@ -35,7 +40,7 @@ function ChatPage() {
   return (
     <Grid container className={classes.fullPage}>
       <Grid item xs={3}>
-        <Box px={3} height="100%" display="flex" flexDirection="column">
+        <Box px={3} className={classes.leftPanel}>
           <SelfSettings />
           <Typography variant="h3">Chats</Typography>
           <Box flexGrow={1} className={classes.scrollWrapper}>
