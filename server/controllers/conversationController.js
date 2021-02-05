@@ -13,18 +13,15 @@ module.exports = {
       const extraData = await Promise.all(
         data.map(async function (conversation) {
           //Filter self out of participants
-          const userData = await conversation.participants.filter(
+          const userData = conversation.participants.filter(
             (user) => user._id.toString() !== req.user._id.toString()
           );
-          console.log(userData);
           // set up a title as either conversation.title, or a list of participating users
           const title =
             conversation.title ||
-            (await Promise.all(
-              userData.map((user) => {
-                return user.username;
-              })
-            ));
+            userData.map((user) => {
+              return user.username;
+            });
           // set up image : use conversation image if one exists.  Otherwise, try and use the user[0]s image.  Otherwise, return null and let the Avatar handle it.
           const image = conversation.image
             ? conversation.image
@@ -48,7 +45,6 @@ module.exports = {
           };
         })
       );
-      // console.log(dataWithParticipants);
       res.json({ dbModel: extraData });
     } catch (err) {
       res.status(422).json(err);
