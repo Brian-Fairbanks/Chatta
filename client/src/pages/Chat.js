@@ -4,6 +4,8 @@ import FriendSearch from "../components/FriendSearch";
 import ConversationWell from "../components/ConversationWell";
 import MessageWell from "../components/MessageWell";
 import PostMessageForm from "../components/PostMessageForm";
+import ConversationTitleCard from "../components/ConversationTitleCard";
+import SelfSettings from "../components/SelfSettings";
 // import API from "../../utils/API";
 
 const useStyles = makeStyles({
@@ -24,6 +26,11 @@ const useStyles = makeStyles({
     position: "relative",
     overflow: "hidden",
   },
+  leftPanel: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
 });
 
 function ChatPage() {
@@ -33,9 +40,9 @@ function ChatPage() {
   return (
     <Grid container className={classes.fullPage}>
       <Grid item xs={3}>
-        <Box px={3} height="100%" display="flex" flexDirection="column">
-          {/* <SelfSettings/> */}
-          <Typography variant="h1">Chats</Typography>
+        <Box px={3} className={classes.leftPanel}>
+          <SelfSettings />
+          <Typography variant="h3">Chats</Typography>
           <Box flexGrow={1} className={classes.scrollWrapper}>
             <Box className={classes.scrollContent}>
               <FriendSearch />
@@ -45,7 +52,7 @@ function ChatPage() {
         </Box>
       </Grid>
       <Grid container item xs={9} height="100%" direction="column">
-        <Typography variant="h1">Message Well</Typography>
+        <ConversationTitleCard />
         <Box flexGrow={1} className={classes.scrollWrapper}>
           <Box className={classes.scrollContent} px={5}>
             <MessageWell />

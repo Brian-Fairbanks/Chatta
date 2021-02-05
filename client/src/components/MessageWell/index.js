@@ -17,9 +17,11 @@ function MessageWell() {
           {!messages
             ? ""
             : messages.map((message) => {
+                // figure out if this is you or another user
                 const author = participants.filter(
                   (user) => user._id == message.author
                 )[0];
+                // render the message to the screen
                 return (
                   <Message
                     key={message._id}
@@ -28,7 +30,7 @@ function MessageWell() {
                     isSelf={author && author._id === user._id}
                     username={author ? author.username : ""}
                     image={author ? author.image : ""}
-                  ></Message>
+                  />
                 );
               })}
         </Box>

@@ -18,8 +18,7 @@ const useStyles = makeStyles({
   contentPane: {
     flexGrow: 1,
     maxHeight: "100vh",
-    overflow: "auto"
-
+    overflow: "auto",
   },
 
   pageHeader: {
@@ -44,25 +43,28 @@ const useStyles = makeStyles({
 function UserAuth(props) {
   const classes = useStyles();
 
-  const {type} = props;
+  const { type } = props;
   return (
     <Box className={classes.paneWrapper}>
       <UserPaneSplash />
       <Box className={classes.contentPane}>
         <Box className={classes.pageHeader}>
-          <Typography variant="subtitle1">
-            {type === "login"? "Don't have an account?":"Already have an account?"}
+          <Typography variant="body1" display="inline">
+            {type === "login"
+              ? "Don't have an account?"
+              : "Already have an account?"}
           </Typography>
-          <Link className={classes.noUnderline}
-            to={type === "login"? "/signup":"/login"}
-            >
+          <Link
+            className={classes.noUnderline}
+            to={type === "login" ? "/signup" : "/login"}
+          >
             <Button color="primary">
-              {type === "login"? "Create account":"Login"}
+              {type === "login" ? "Create account" : "Login"}
             </Button>
           </Link>
         </Box>
-        <Box  className={classes.header}>
-        {type === "login"? <LoginForm/>:<SignupForm/>}
+        <Box className={classes.header}>
+          {type === "login" ? <LoginForm /> : <SignupForm />}
         </Box>
       </Box>
     </Box>

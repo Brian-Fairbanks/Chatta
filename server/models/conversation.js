@@ -1,35 +1,33 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-
-const roomImage = 'https://3k67ko48fxrx2usj0z384y49-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/anonymous-user-ico-300x300-200x200.png'
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const conversationSchema = new Schema({
   title: {
-    type: String
+    type: String,
   },
   substring: {
-    type: String
+    type: String,
   },
   image: {
     type: String,
-    default: roomImage
+    default: null,
   },
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   participants: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
+      ref: "User",
+    },
   ],
   lastMessage: {
-    message_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Message' },
-    content: { type: String }
+    message_id: { type: mongoose.Schema.Types.ObjectId, ref: "Message" },
+    content: { type: String },
   },
   lastUpdate: {
     type: Date,
-    default: Date.now
-  }
-})
+    default: Date.now,
+  },
+});
 
-const Conversation = mongoose.model('Conversation', conversationSchema)
-module.exports = Conversation
+const Conversation = mongoose.model("Conversation", conversationSchema);
+module.exports = Conversation;
