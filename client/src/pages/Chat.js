@@ -6,7 +6,7 @@ import MessageWell from "../components/MessageWell";
 import PostMessageForm from "../components/PostMessageForm";
 import ConversationTitleCard from "../components/ConversationTitleCard";
 import SelfSettings from "../components/SelfSettings";
-// import API from "../../utils/API";
+import Socket from "../utils/Socket";
 
 const useStyles = makeStyles({
   fullPage: {

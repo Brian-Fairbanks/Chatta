@@ -11,27 +11,6 @@ const pingRouter = require("./routes/ping");
 const { json, urlencoded } = express;
 const app = express();
 
-// Instance of Socket IO Listening
-//=====================================
-var http = require("http").createServer(app);
-var io = require("socket.io")(http);
-
-io.on("connection", (socket) => {
-  //connection
-  console.log("a user connected");
-
-  // disconnection
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
-
-  // chat message
-  socket.on("chatMessage", (msg) => {
-    console.log("message: " + msg);
-    // io.emit("newMessage", msg);
-  });
-});
-
 // Middleware
 //========================
 app.use(logger("dev"));
