@@ -6,15 +6,17 @@ module.exports.Create = function (server) {
   users = io.of("users");
   users.on("connection", (socket) => {
     //connection
-    console.log("a user connected");
 
+    // each socket is it's own instance, and can be given its own properties: such as userID and username
     socket.on("setUser", (user) => {
-      console.log(user);
+      socket.userID = user._id;
+      socket.username = user.username;
+      console.log(socket.username, "has disconnected");
     });
 
     // disconnection
     socket.on("disconnect", () => {
-      console.log("user disconnected");
+      console.log(socket.username, "has disconnected");
     });
   });
 };
