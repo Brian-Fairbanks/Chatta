@@ -7,6 +7,8 @@ import PostMessageForm from "../components/PostMessageForm";
 import ConversationTitleCard from "../components/ConversationTitleCard";
 import SelfSettings from "../components/SelfSettings";
 import Socket from "../utils/Socket";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../utils/UserContext";
 
 const useStyles = makeStyles({
   fullPage: {
@@ -36,6 +38,13 @@ const useStyles = makeStyles({
 function ChatPage() {
   // set up styles for use by elements
   const classes = useStyles();
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user) {
+      Socket.connect(user);
+    }
+  }, [user]);
 
   return (
     <Grid container className={classes.fullPage}>
