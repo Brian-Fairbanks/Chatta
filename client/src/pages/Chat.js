@@ -40,25 +40,44 @@ function ChatPage() {
   // set up styles for use by elements
   const classes = useStyles();
   const { user } = useContext(UserContext);
-  const { conversation, messages, setMessages } = useContext(ChatroomContext);
+  const { setConversation, setMessages } = useContext(ChatroomContext);
   const { socket, setSocket } = useContext(ChatroomContext);
 
   // setup the socket information
   useEffect(
     async function () {
       if (user) {
-        // callback
+        // callback function when socket says you got a new message
         async function addMessage(data) {
-          console.log("Got a message from the server!");
-          setMessages((prevMessages) => {
-            return [...prevMessages, data];
+          console.log("Got a message from the server!", data);
+
+          // this seems like a very roundabout way to do this...
+          // but this seems to be the only way to garuntee using the most current conversation data
+          var curConversation;
+          setConversation((currentState) => {
+            // Do not change the state by get the updated state
+            curConversation = currentState;
+            return currentState;
           });
+
+          // if you are in the correct chatroom for the recieved message, add it to the message array
+          console.log(curConversation);
+          if (data.conversation.toString() == curConversation._id.toString()) {
+            setMessages((prevMessages) => {
+              return [...prevMessages, data];
+            });
+          }
+          //otherwise, refresh your conversation data so it shows the update
+          else {
+            console.log("check in conversation ", data.conversation);
+          }
         }
 
+        // Set up the socket to be used for sending and receiving messages, and store it in the conversation context
         const thisSocket = await useSocket.connect(user);
         setSocket(useSocket);
 
-        //setup function recieving data
+        //setup listen function
         thisSocket.on("newMessage", (data) => {
           addMessage(data);
         });
