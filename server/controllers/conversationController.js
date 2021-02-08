@@ -7,7 +7,9 @@ module.exports = {
       // Gather all conversations, and their participants
       const data = await db.Conversation.find({
         participants: req.user._id,
-      }).populate("participants");
+      })
+        .populate("participants")
+        .sort({ lastUpdate: -1 });
 
       // Add extra data, usefull for display
       const extraData = await Promise.all(
