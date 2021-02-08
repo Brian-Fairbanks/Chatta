@@ -1,4 +1,5 @@
 var socketio = require("socket.io");
+const db = require("./models");
 
 // keep an array of users online
 const socketUserDict = {};
@@ -14,13 +15,15 @@ module.exports.Create = function (server) {
     socket.username = user.username;
     addClientToMap(user._id, socket.id);
     console.log(socket.username, "has connected");
-    // console.log(socketUserDict);
+    // Set users status as online
+    db.User.findOneAndUpdate({ _id: user._id }, { status: "online" });
 
     // disconnection
     socket.on("disconnect", () => {
       removeClientFromMap(socket.userID, socket.id);
       console.log(socket.username, "has disconnected");
-      // console.log(socketUserDict);
+      // Set users status as online
+      db.User.findOneAndUpdate({ _id: user._id }, { status: "offline" });
     });
 
     // sendMessage

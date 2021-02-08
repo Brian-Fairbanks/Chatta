@@ -69,7 +69,12 @@ module.exports = {
       const userData = await Promise.all(
         conversation.participants.map(async function (member) {
           const user = await db.User.findOne({ _id: member });
-          return { _id: member, username: user.username, image: user.image };
+          return {
+            _id: member,
+            username: user.username,
+            image: user.image,
+            status: user.status,
+          };
         })
       );
 
