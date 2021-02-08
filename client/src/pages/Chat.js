@@ -40,8 +40,12 @@ function ChatPage() {
   // set up styles for use by elements
   const classes = useStyles();
   const { user } = useContext(UserContext);
-  const { setConversation, setMessages } = useContext(ChatroomContext);
-  const { socket, setSocket } = useContext(ChatroomContext);
+  const {
+    setConversation,
+    setMessages,
+    setSocket,
+    setTriggerConversations,
+  } = useContext(ChatroomContext);
 
   // setup the socket information
   useEffect(
@@ -49,8 +53,6 @@ function ChatPage() {
       if (user) {
         // callback function when socket says you got a new message
         async function addMessage(data) {
-          console.log("Got a message from the server!", data);
-
           // this seems like a very roundabout way to do this...
           // but this seems to be the only way to garuntee using the most current conversation data
           var curConversation;
@@ -61,15 +63,17 @@ function ChatPage() {
           });
 
           // if you are in the correct chatroom for the recieved message, add it to the message array
-          console.log(curConversation);
-          if (data.conversation.toString() == curConversation._id.toString()) {
+          if (
+            curConversation._id &&
+            data.conversation.toString() == curConversation._id.toString()
+          ) {
             setMessages((prevMessages) => {
               return [...prevMessages, data];
             });
           }
           //otherwise, refresh your conversation data so it shows the update
           else {
-            console.log("check in conversation ", data.conversation);
+            setTriggerConversations(true);
           }
         }
 

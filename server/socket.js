@@ -33,7 +33,6 @@ module.exports.Create = function (server) {
       const loggedSockets = participants.map((id) => socketUserDict[id]).flat();
       // emit to those users.
       loggedSockets.forEach((socketID) => {
-        console.log(`emitting to ${socketID}`);
         users.to(socketID).emit("newMessage", msg.msg);
       });
     });

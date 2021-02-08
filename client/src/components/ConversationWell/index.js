@@ -1,5 +1,5 @@
 import { Box, CircularProgress } from "@material-ui/core";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ConversationTile from "../ConversationTile";
 import usePullConversations from "../usePullConversations";
 import { ChatroomContext } from "../../utils/ChatroomContext";
@@ -9,9 +9,15 @@ import utils from "../../utils/API";
 function ConversationWell() {
   // Set up constatnts
   const { conversations, isLoading } = usePullConversations();
-  const { setConversation, setParticipants, setMessages } = useContext(
-    ChatroomContext
-  );
+  const {
+    triggerConversations,
+    setTriggerConversations,
+    setConversation,
+    conversationList,
+    setConversationList,
+    setParticipants,
+    setMessages,
+  } = useContext(ChatroomContext);
 
   // Handle updating conversation
   async function changeConversation(id) {
@@ -21,12 +27,24 @@ function ConversationWell() {
     setParticipants(data.participants);
   }
 
+  // reload the conversations whenever triggerConversations is set
+  useEffect(
+    async function () {
+      if (triggerConversations) {
+        const convos = await utils.getConversations();
+        setConversationList(convos.dbModel);
+        setTriggerConversations(false);
+      }
+    },
+    [triggerConversations]
+  );
+
   return (
     <Box>
-      {isLoading ? (
+      {!conversationList ? (
         <CircularProgress />
       ) : (
-        conversations.map((chat) => {
+        conversationList.map((chat) => {
           return (
             <Box
               key={chat._id}
