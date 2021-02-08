@@ -6,9 +6,10 @@ import MessageWell from "../components/MessageWell";
 import PostMessageForm from "../components/PostMessageForm";
 import ConversationTitleCard from "../components/ConversationTitleCard";
 import SelfSettings from "../components/SelfSettings";
-import Socket from "../utils/Socket";
+import useSocket from "../utils/UseSocket";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../utils/UserContext";
+import { ChatroomContext } from "../utils/ChatroomContext";
 
 const useStyles = makeStyles({
   fullPage: {
@@ -39,12 +40,32 @@ function ChatPage() {
   // set up styles for use by elements
   const classes = useStyles();
   const { user } = useContext(UserContext);
+  const { conversation, messages, setMessages } = useContext(ChatroomContext);
+  const { socket, setSocket } = useContext(ChatroomContext);
 
-  useEffect(() => {
-    if (user) {
-      Socket.connect(user);
-    }
-  }, [user]);
+  // setup the socket information
+  useEffect(
+    async function () {
+      if (user) {
+        // callback
+        async function addMessage(data) {
+          console.log("Got a message from the server!");
+          setMessages((prevMessages) => {
+            return [...prevMessages, data];
+          });
+        }
+
+        const thisSocket = await useSocket.connect(user);
+        setSocket(useSocket);
+
+        //setup function recieving data
+        thisSocket.on("newMessage", (data) => {
+          addMessage(data);
+        });
+      }
+    },
+    [user]
+  );
 
   return (
     <Grid container className={classes.fullPage}>

@@ -3,8 +3,6 @@ import { theme } from "../../themes/theme";
 import {
   Box,
   FormControl as Form,
-  Grid,
-  TextField,
   makeStyles,
   TextareaAutosize,
 } from "@material-ui/core";
@@ -47,10 +45,10 @@ function PostMessageForm() {
   const {
     conversation,
     setConversation,
-    messages,
     setMessages,
     participants,
     setParticipants,
+    socket,
   } = useContext(ChatroomContext);
 
   // clear messages and change converstaion when a user clicks another conversation page
@@ -89,6 +87,8 @@ function PostMessageForm() {
     }
     //otherwise, just post it
     const data = await utils.postMessage(userSubmission);
+    // and emit that you have sent a message
+    socket.socketMsg({ msg: data, participants });
     // clear message
     setUserSubmission((prevData) => {
       return { ...prevData, content: "" };
