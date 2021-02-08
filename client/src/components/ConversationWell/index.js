@@ -1,14 +1,12 @@
 import { Box, CircularProgress } from "@material-ui/core";
 import { useContext, useEffect } from "react";
 import ConversationTile from "../ConversationTile";
-import usePullConversations from "../usePullConversations";
 import { ChatroomContext } from "../../utils/ChatroomContext";
 import utils from "../../utils/API";
 
 // Previous Conversation Well Creation
 function ConversationWell() {
   // Set up constatnts
-  const { conversations, isLoading } = usePullConversations();
   const {
     triggerConversations,
     setTriggerConversations,
