@@ -16,14 +16,11 @@ module.exports.Create = function (server) {
     addClientToMap(user._id, socket.id);
     console.log(socket.username, "has connected");
     // Set users status as online
-    db.User.findOneAndUpdate({ _id: user._id }, { status: "online" });
 
     // disconnection
     socket.on("disconnect", () => {
       removeClientFromMap(socket.userID, socket.id);
       console.log(socket.username, "has disconnected");
-      // Set users status as online
-      db.User.findOneAndUpdate({ _id: user._id }, { status: "offline" });
     });
 
     // sendMessage
@@ -44,19 +41,33 @@ module.exports.Create = function (server) {
 
 // Helper Functions
 //=========================
-function addClientToMap(userID, socketID) {
+async function addClientToMap(userID, socketID) {
   if (socketUserDict[userID]) {
     socketUserDict[userID].push(socketID);
   } else {
     socketUserDict[userID] = [socketID];
   }
+  const user = await db.User.findOneAndUpdate(
+    { _id: userID },
+    { status: "online" },
+    { useFindAndModify: false }
+  );
 }
 
-function removeClientFromMap(userID, socketID) {
+async function removeClientFromMap(userID, socketID) {
   try {
-    socketUserDict[userID] = socketUserDict[userID].filter(
+    socketUserDict[userID] = await socketUserDict[userID].filter(
       (connection) => connection != socketID
     );
+
+    if (socketUserDict[userID].length == 0) {
+      // Set users status as online
+      const user = await db.User.findOneAndUpdate(
+        { _id: userID },
+        { status: "offline" },
+        { useFindAndModify: false }
+      );
+    }
   } catch (err) {
     console.log(err);
   }

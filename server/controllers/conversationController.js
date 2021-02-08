@@ -73,7 +73,7 @@ module.exports = {
             _id: member,
             username: user.username,
             image: user.image,
-            status: user.status,
+            status: user.status || "unset",
           };
         })
       );

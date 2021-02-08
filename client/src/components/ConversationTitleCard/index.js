@@ -31,12 +31,15 @@ export default function ConversationTitleCard() {
             participants
               .filter((participant) => participant._id !== user._id)
               .map((participant) => {
+                console.log(participant);
                 return (
                   <Box display="flex" key={participant._id}>
                     <Typography variant="h3" className={classes.title}>
                       {participant.username}
                     </Typography>
-                    <Typography variant="subtitle2">offline</Typography>
+                    <Typography variant="subtitle2">
+                      {participant.status}
+                    </Typography>
                   </Box>
                 );
               })}
