@@ -16,7 +16,7 @@ export default function useFindUser() {
       await fetch("/auth", requestOptions)
         .then(async function (res) {
           const data = await res.json();
-          console.log(data.user);
+          // console.log(data.user);
           setUser(data.user);
           setLoading(false);
         })

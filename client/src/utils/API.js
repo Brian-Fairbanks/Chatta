@@ -102,7 +102,6 @@ export default {
   // Create a new chatroom
   createConversation: async function (userData) {
     // set up fetch requests
-    console.log(userData);
     const requestOptions = {
       method: "POST",
       headers: {

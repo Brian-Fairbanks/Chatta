@@ -26,11 +26,10 @@ export default function StatusIndicator(props) {
   const classes = useStyles();
   return (
     <Box
-      className={[
-        classes.base,
-        classes[props.status],
-        classes[props.standAlone ? "standalone" : "image"],
-      ]}
+      className={`
+        ${classes.base}
+        ${classes[props.status]}
+        ${classes[props.standAlone ? "standalone" : "image"]}`}
     ></Box>
   );
 }
