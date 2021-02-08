@@ -73,6 +73,8 @@ export const theme = createMuiTheme({
       faded: "#99A9C4",
       selfLight: "#F4F6FA",
       selfDark: "#91A3C0",
+      offline: "#D0DAE9",
+      online: "#1CED84",
     },
   },
 });

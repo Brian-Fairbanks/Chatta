@@ -1,4 +1,5 @@
 import { Box, Grid, makeStyles, Avatar, Typography } from "@material-ui/core";
+import StatusIndicator from "../StatusIndicator";
 
 const useStyles = makeStyles((theme) => ({
   conversationTile: {
@@ -53,11 +54,14 @@ function ConversationTile(props) {
   return (
     <Grid container direction="row" className={classes.conversationTile}>
       <Grid item className={classes.flexFixed}>
-        <Avatar
-          src={props.image}
-          className={classes.conImg}
-          alt={`${props.title} avatar`}
-        />
+        <Box position="relative" display="flex" flexDirection="row" mr={2}>
+          <Avatar
+            src={props.image}
+            className={classes.conImg}
+            alt={`${props.title} avatar`}
+          />
+          <StatusIndicator status={props.status} />
+        </Box>
       </Grid>
 
       <Grid item container direction="column" className={classes.flexGrow}>

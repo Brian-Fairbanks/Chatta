@@ -101,7 +101,11 @@ function FriendSearch() {
                   changeConversation(user._id);
                 }}
               >
-                <UserTile image={user.image} username={user.username} />
+                <UserTile
+                  image={user.image}
+                  username={user.username}
+                  status={user.status}
+                />
               </Box>
             );
           })}

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import openSocket from "socket.io-client";
-import { ChatroomContext } from "../utils/ChatroomContext";
+import { ChatroomContext } from "./ChatroomContext";
 
 var socket;
 
@@ -15,13 +15,3 @@ export default {
     socket.emit("chatMessage", msgData);
   },
 };
-
-function setupListener() {
-  // Listening for messages
-  socket.on("newMessage", (data) => {
-    console.log("Got a message from the server!");
-    // setMessages((prevMessages) => {
-    //   return { ...prevMessages, data };
-    // });
-  });
-}

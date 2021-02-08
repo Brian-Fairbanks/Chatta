@@ -54,6 +54,7 @@ function ConversationWell() {
                 title={chat.title ? chat.title : chat.participants}
                 message={chat.lastMessage ? chat.lastMessage.content : ""}
                 image={chat.image}
+                status={chat.status}
               />
             </Box>
           );

@@ -29,6 +29,9 @@ module.exports = {
             ? userData[0].image
             : null;
 
+          //set up status
+          const status = userData[0] ? userData[0].status : "offline";
+
           // Return conversation data with additional changes
           return {
             lastMessage: conversation.lastMessage,
@@ -42,6 +45,7 @@ module.exports = {
               title.length > 0
                 ? title.join(", ")
                 : `${req.user.username} (you)`,
+            status,
           };
         })
       );
@@ -73,7 +77,8 @@ module.exports = {
             _id: member,
             username: user.username,
             image: user.image,
-            status: user.status || "unset",
+            // default to offline if status has never been set.
+            status: user.status || "offline",
           };
         })
       );

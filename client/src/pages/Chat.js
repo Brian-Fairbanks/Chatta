@@ -6,7 +6,7 @@ import MessageWell from "../components/MessageWell";
 import PostMessageForm from "../components/PostMessageForm";
 import ConversationTitleCard from "../components/ConversationTitleCard";
 import SelfSettings from "../components/SelfSettings";
-import useSocket from "../utils/UseSocket";
+import Socket from "../utils/Socket";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../utils/UserContext";
 import { ChatroomContext } from "../utils/ChatroomContext";
@@ -78,8 +78,8 @@ function ChatPage() {
         }
 
         // Set up the socket to be used for sending and receiving messages, and store it in the conversation context
-        const thisSocket = await useSocket.connect(user);
-        setSocket(useSocket);
+        const thisSocket = await Socket.connect(user);
+        setSocket(Socket);
 
         //setup listen function
         thisSocket.on("newMessage", (data) => {

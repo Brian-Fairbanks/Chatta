@@ -1,18 +1,32 @@
-import { Box, Grid } from "@material-ui/core";
+import { Avatar, Box, Grid, makeStyles } from "@material-ui/core";
+import StatusIndicator from "../StatusIndicator";
 
-function ConversationTile(props){
+const useStyles = makeStyles({
+  avatar: {
+    width: 44,
+    height: 44,
+    marginRight: 8,
+  },
+});
 
-  return(
-  <Grid container spacing={2}>
-    <Grid item xs={2}>
-      <img src={props.image} width="44px" height="44px"/>
+function ConversationTile(props) {
+  const classes = useStyles();
+  return (
+    <Grid container alignItems="center">
+      <Grid item>
+        <Box position="relative" display="flex" flexDirection="row" mr={2}>
+          <Avatar
+            src={props.image}
+            className={classes.avatar}
+            alt={`${props.title} avatar`}
+          />
+          <StatusIndicator status={props.status} />
+        </Box>
+      </Grid>
+
+      <Grid item>{props.username}</Grid>
     </Grid>
-    
-    <Grid item xs={10}>
-      {props.username}
-    </Grid>
-  </Grid>
-  )
+  );
 }
 
 export default ConversationTile;
