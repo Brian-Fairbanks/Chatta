@@ -48,6 +48,7 @@ module.exports = {
                 ? title.join(", ")
                 : `${req.user.username} (you)`,
             status,
+            notifications: conversation.totalCount | 0,
           };
         })
       );

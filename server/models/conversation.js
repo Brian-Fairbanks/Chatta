@@ -17,6 +17,8 @@ const conversationSchema = new Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      lastSeen: { type: mongoose.Schema.Types.ObjectId, ref: "Message" },
+      lastCount: { type: Number, default: 0 },
     },
   ],
   lastMessage: {
@@ -27,6 +29,7 @@ const conversationSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  totalCount: {},
 });
 
 const Conversation = mongoose.model("Conversation", conversationSchema);

@@ -48,6 +48,7 @@ module.exports = {
           message_id: newMessage._id,
           content: newMessage.content,
         },
+        totalCount: conversation.totalCount ? conversation.totalCount + 1 : 1,
         lastUpdate: Date.now(),
       });
 
