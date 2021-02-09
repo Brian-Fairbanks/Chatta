@@ -55,6 +55,7 @@ function ConversationWell() {
                 message={chat.lastMessage ? chat.lastMessage.content : ""}
                 image={chat.image}
                 status={chat.status}
+                notification={"2"}
               />
             </Box>
           );

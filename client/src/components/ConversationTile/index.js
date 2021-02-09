@@ -68,20 +68,28 @@ function ConversationTile(props) {
         <Typography variant="h6" className={classes.title}>
           {props.title}
         </Typography>
-        <Typography variant="subtitle1" className={classes.title}>
-          {props.message}
-        </Typography>
+        {props.message ? (
+          <Typography variant="subtitle1" className={classes.title}>
+            {props.message}
+          </Typography>
+        ) : (
+          ""
+        )}
       </Grid>
 
-      <Grid
-        item
-        container
-        className={classes.flexFixed}
-        justify="flex-end"
-        alignItems="center"
-      >
-        <Box className={classes.notify}>2</Box>
-      </Grid>
+      {props.notification ? (
+        <Grid
+          item
+          container
+          className={classes.flexFixed}
+          justify="flex-end"
+          alignItems="center"
+        >
+          <Box className={classes.notify}>{props.notification}</Box>
+        </Grid>
+      ) : (
+        ""
+      )}
     </Grid>
   );
 }
