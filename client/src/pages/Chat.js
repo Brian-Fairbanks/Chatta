@@ -48,47 +48,48 @@ function ChatPage() {
   } = useContext(ChatroomContext);
 
   // setup the socket information
-  useEffect(
-    async function () {
-      if (user) {
-        // callback function when socket says you got a new message
-        async function addMessage(data) {
-          // this seems like a very roundabout way to do this...
-          // but this seems to be the only way to garuntee using the most current conversation data
-          var curConversation;
-          setConversation((currentState) => {
-            // Do not change the state by get the updated state
-            curConversation = currentState;
-            return currentState;
-          });
+  useEffect(() => {
+    // callback function when socket says you got a new message
+    async function addMessage(data) {
+      // this seems like a very roundabout way to do this...
+      // but this seems to be the only way to garuntee using the most current conversation data
+      var curConversation;
+      setConversation((currentState) => {
+        // Do not change the state by get the updated state
+        curConversation = currentState;
+        return currentState;
+      });
 
-          // if you are in the correct chatroom for the recieved message, add it to the message array
-          if (
-            curConversation._id &&
-            data.conversation.toString() == curConversation._id.toString()
-          ) {
-            setMessages((prevMessages) => {
-              return [...prevMessages, data];
-            });
-          }
-          //otherwise, refresh your conversation data so it shows the update
-          else {
-            setTriggerConversations(true);
-          }
-        }
-
-        // Set up the socket to be used for sending and receiving messages, and store it in the conversation context
-        const thisSocket = await Socket.connect(user);
-        setSocket(Socket);
-
-        //setup listen function
-        thisSocket.on("newMessage", (data) => {
-          addMessage(data);
+      // if you are in the correct chatroom for the recieved message, add it to the message array
+      if (
+        curConversation._id &&
+        data.conversation.toString() === curConversation._id.toString()
+      ) {
+        setMessages((prevMessages) => {
+          return [...prevMessages, data];
         });
       }
-    },
-    [user]
-  );
+      //otherwise, refresh your conversation data so it shows the update
+      else {
+        setTriggerConversations(true);
+      }
+    }
+
+    // Set up the socket to be used for sending and receiving messages, and store it in the conversation context
+    async function setUpSocket() {
+      const thisSocket = await Socket.connect(user);
+      setSocket(Socket);
+
+      //setup listen function
+      thisSocket.on("newMessage", (data) => {
+        addMessage(data);
+      });
+    }
+    if (user) {
+      //ensure that user has already been authenticated before connecting the socket
+      setUpSocket();
+    }
+  }, [user]);
 
   return (
     <Grid container className={classes.fullPage}>

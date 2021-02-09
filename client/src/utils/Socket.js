@@ -10,8 +10,10 @@ export default {
     socket = openSocket("/users", { query: user });
     return socket;
   },
+
+  // moved to backend, kept for testing
   // send message from user
-  socketMsg(msgData) {
-    socket.emit("chatMessage", msgData);
-  },
+  // socketMsg(msgData) {
+  //   socket.emit("chatMessage", msgData);
+  // },
 };

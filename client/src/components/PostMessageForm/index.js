@@ -87,8 +87,8 @@ function PostMessageForm() {
     }
     //otherwise, just post it
     const data = await utils.postMessage(userSubmission);
-    // and emit that you have sent a message
-    socket.socketMsg({ msg: data, participants });
+    // no need to send message, the backend is handling this now.
+
     // clear message
     setUserSubmission((prevData) => {
       return { ...prevData, content: "" };

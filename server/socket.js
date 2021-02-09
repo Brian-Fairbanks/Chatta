@@ -4,39 +4,45 @@ const db = require("./models");
 // keep an array of users online
 const socketUserDict = {};
 
-module.exports.Create = function (server) {
-  io = socketio(server);
+module.exports = {
+  // Create instance of socket listener/logic
+  Create: function (server) {
+    io = socketio(server);
 
-  users = io.of("users");
-  users.on("connection", async (socket) => {
-    const user = socket.handshake.query;
+    users = io.of("users");
+    users.on("connection", async (socket) => {
+      const user = socket.handshake.query;
 
-    socket.userID = user._id;
-    socket.username = user.username;
-    addClientToMap(user._id, socket.id);
-    console.log(socket.username, "has connected");
-    // Set users status as online
+      socket.userID = user._id;
+      socket.username = user.username;
+      addClientToMap(user._id, socket.id);
+      console.log(socket.username, "has connected");
+      // Set users status as online
 
-    // disconnection
-    socket.on("disconnect", () => {
-      removeClientFromMap(socket.userID, socket.id);
-      console.log(socket.username, "has disconnected");
-    });
-
-    // sendMessage
-    socket.on("chatMessage", (msg) => {
-      // get participants for message
-      const participants = [
-        ...new Set(msg.participants.map((user) => user._id)),
-      ];
-      // check these against all users logged on
-      const loggedSockets = participants.map((id) => socketUserDict[id]).flat();
-      // emit to those users.
-      loggedSockets.forEach((socketID) => {
-        users.to(socketID).emit("newMessage", msg.msg);
+      // disconnection
+      socket.on("disconnect", () => {
+        removeClientFromMap(socket.userID, socket.id);
+        console.log(socket.username, "has disconnected");
       });
     });
-  });
+  },
+
+  // sendMessages to all participants of a conversation
+  fireMessage: function (msg, toUsers) {
+    // get participants for message
+    const participants = [...new Set(toUsers.map((user) => user._id))];
+    // check these against all users logged on
+    const loggedSockets = participants.map((id) => socketUserDict[id]).flat();
+    // emit to those users.
+    loggedSockets.forEach((socketID) => {
+      users.to(socketID).emit("newMessage", msg);
+    });
+  },
+
+  //return the io instance
+  getInstance: function () {
+    return io;
+  },
 };
 
 // Helper Functions
@@ -69,6 +75,6 @@ async function removeClientFromMap(userID, socketID) {
       );
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }

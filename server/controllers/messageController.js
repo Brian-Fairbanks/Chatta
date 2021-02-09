@@ -1,5 +1,6 @@
 const db = require("../models");
 const utils = require("./utils");
+const socket = require("../socket");
 
 // Defining methods for the Chat Controller
 module.exports = {
@@ -37,15 +38,28 @@ module.exports = {
     // then add extra data
     msg.author = req.user._id;
     // Create the message
-    db.Message.create(msg)
-      .then(async (dbModel) => {
-        // updated the most recent message in the conversation document
-        await conversation.update({
-          lastMessage: { message_id: dbModel._id, content: dbModel.content },
-          lastUpdate: Date.now(),
-        });
-        res.json(dbModel);
-      })
-      .catch((err) => res.status(422).json(err));
+    try {
+      // create the message
+      let newMessage = await db.Message.create(msg);
+
+      // updated the most recent message in the conversation document
+      await conversation.update({
+        lastMessage: {
+          message_id: newMessage._id,
+          content: newMessage.content,
+        },
+        lastUpdate: Date.now(),
+      });
+
+      // import socket
+      const io = socket.getInstance();
+      // and fire off the message
+      socket.fireMessage(newMessage, conversation.participants);
+      // then return success to the user
+      res.json(newMessage);
+    } catch (err) {
+      console.error(err);
+      res.status(422).json(err);
+    }
   },
 };
