@@ -53,7 +53,7 @@ function ChatPage() {
     async function addMessage(data) {
       // this seems like a very roundabout way to do this...
       // but this seems to be the only way to garuntee using the most current conversation data
-      var curConversation;
+      let curConversation;
       setConversation((currentState) => {
         // Do not change the state by get the updated state
         curConversation = currentState;
