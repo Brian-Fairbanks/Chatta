@@ -48,7 +48,7 @@ function login(req, res) {
           httpOnly: true,
         });
         // return JSON that user login succeeded
-        return res.json({ success: true, token: "set" });
+        return res.status(201).json({ success: true, token: "set" });
       });
     } catch (error) {
       console.error(error);

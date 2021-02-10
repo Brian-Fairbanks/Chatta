@@ -9,6 +9,7 @@ import {
 import { Alert as MuiAlert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import API from "../../utils/API";
 import Validation from "../../utils/Validate";
@@ -41,6 +42,8 @@ function SignupForm() {
 
   // set up styles for use by elements
   const classes = useStyles();
+
+  let history = useHistory();
 
   // Set up States
   const [userSubmission, setUserSubmission] = useState({
@@ -157,18 +160,20 @@ function SignupForm() {
             "success",
             "Congratulations! You have just created an account!"
           );
+          // Should also be signed in now.  redirect to chat page
+          history.push("/chat");
         }
         // otherwise print error sent back from API
         else {
-          handleSnackApi(data.severity, data.msg, data.name)
+          handleSnackApi(data.severity, data.msg, data.name);
         }
       })
       .catch((err) => {
         handleSnackApi(
           "error",
-          "Somethign went wrong!  Please try again later.",
+          "Somethign went wrong!  Please try again later."
         );
-        return
+        return;
       });
   }
 
