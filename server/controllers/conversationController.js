@@ -7,7 +7,9 @@ module.exports = {
       // Gather all conversations, and their participants
       const data = await db.Conversation.find({
         participants: req.user._id,
-      }).populate("participants");
+      })
+        .populate("participants")
+        .sort({ lastUpdate: -1 });
 
       // Add extra data, usefull for display
       const extraData = await Promise.all(
@@ -29,6 +31,9 @@ module.exports = {
             ? userData[0].image
             : null;
 
+          //set up status
+          const status = userData[0] ? userData[0].status : "offline";
+
           // Return conversation data with additional changes
           return {
             lastMessage: conversation.lastMessage,
@@ -42,6 +47,8 @@ module.exports = {
               title.length > 0
                 ? title.join(", ")
                 : `${req.user.username} (you)`,
+            status,
+            notifications: conversation.totalCount | 0,
           };
         })
       );
@@ -69,7 +76,13 @@ module.exports = {
       const userData = await Promise.all(
         conversation.participants.map(async function (member) {
           const user = await db.User.findOne({ _id: member });
-          return { _id: member, username: user.username, image: user.image };
+          return {
+            _id: member,
+            username: user.username,
+            image: user.image,
+            // default to offline if status has never been set.
+            status: user.status || "offline",
+          };
         })
       );
 

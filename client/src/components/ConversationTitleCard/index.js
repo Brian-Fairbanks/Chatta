@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { theme } from "../../themes/theme";
 import { ChatroomContext } from "../../utils/ChatroomContext";
 import { UserContext } from "../../utils/UserContext";
+import StatusIndicator from "../StatusIndicator";
 
 const useStyles = makeStyles({
   shadowBox: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles({
     color: theme.palette.primary.faded,
   },
   title: {
-    marginRight: 20,
+    marginRight: 14,
   },
 });
 
@@ -36,7 +37,17 @@ export default function ConversationTitleCard() {
                     <Typography variant="h3" className={classes.title}>
                       {participant.username}
                     </Typography>
-                    <Typography variant="subtitle2">offline</Typography>
+                    <Box
+                      position="relative"
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                    >
+                      <StatusIndicator standAlone status={participant.status} />
+                      <Typography variant="subtitle2">
+                        {participant.status || "Offline"}
+                      </Typography>
+                    </Box>
                   </Box>
                 );
               })}

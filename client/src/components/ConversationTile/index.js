@@ -1,4 +1,5 @@
 import { Box, Grid, makeStyles, Avatar, Typography } from "@material-ui/core";
+import StatusIndicator from "../StatusIndicator";
 
 const useStyles = makeStyles((theme) => ({
   conversationTile: {
@@ -53,31 +54,42 @@ function ConversationTile(props) {
   return (
     <Grid container direction="row" className={classes.conversationTile}>
       <Grid item className={classes.flexFixed}>
-        <Avatar
-          src={props.image}
-          className={classes.conImg}
-          alt={`${props.title} avatar`}
-        />
+        <Box position="relative" display="flex" flexDirection="row" mr={2}>
+          <Avatar
+            src={props.image}
+            className={classes.conImg}
+            alt={`${props.title} avatar`}
+          />
+          <StatusIndicator status={props.status} />
+        </Box>
       </Grid>
 
       <Grid item container direction="column" className={classes.flexGrow}>
         <Typography variant="h6" className={classes.title}>
           {props.title}
         </Typography>
-        <Typography variant="subtitle1" className={classes.title}>
-          {props.message}
-        </Typography>
+        {props.message ? (
+          <Typography variant="subtitle1" className={classes.title}>
+            {props.message}
+          </Typography>
+        ) : (
+          ""
+        )}
       </Grid>
 
-      <Grid
-        item
-        container
-        className={classes.flexFixed}
-        justify="flex-end"
-        alignItems="center"
-      >
-        <Box className={classes.notify}>2</Box>
-      </Grid>
+      {props.notification ? (
+        <Grid
+          item
+          container
+          className={classes.flexFixed}
+          justify="flex-end"
+          alignItems="center"
+        >
+          <Box className={classes.notify}>{props.notification}</Box>
+        </Grid>
+      ) : (
+        ""
+      )}
     </Grid>
   );
 }

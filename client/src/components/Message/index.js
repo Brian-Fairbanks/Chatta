@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Message(props) {
   const classes = useStyles();
-  console.log(props.timeStamp);
   // format timestamp
   const timestamp = new Date(props.timeStamp);
   const fmtTimeStamp = new Intl.DateTimeFormat("en-US", {

@@ -102,7 +102,6 @@ export default {
   // Create a new chatroom
   createConversation: async function (userData) {
     // set up fetch requests
-    console.log(userData);
     const requestOptions = {
       method: "POST",
       headers: {
@@ -110,6 +109,19 @@ export default {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
+    };
+    const response = await fetch("/api/conversation", requestOptions);
+    const data = await response.json();
+    return { status: response.status, ...data };
+  },
+
+  getConversations: async function () {
+    // set up fetch requests
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
     };
     const response = await fetch("/api/conversation", requestOptions);
     const data = await response.json();

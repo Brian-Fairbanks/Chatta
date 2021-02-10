@@ -72,7 +72,7 @@ function LoginForm() {
             msg: "An unknown error has occurred!  Please try again later.",
           });
           handleAlert();
-          console.log({ status: data.status, message: data.statusText });
+          console.error({ status: data.status, message: data.statusText });
         }
       })
       .catch((err) => {

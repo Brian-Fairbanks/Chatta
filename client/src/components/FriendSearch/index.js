@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { Box, fade, makeStyles } from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
-import UserTile from "../UserTile";
 import API from "../../utils/API";
 import useDebounce from "../../utils/debounce";
 import { ChatroomContext } from "../../utils/ChatroomContext";
+import ConversationTile from "../ConversationTile";
 
 const useStyles = makeStyles((theme) => ({
   searchContent: {
@@ -101,7 +101,12 @@ function FriendSearch() {
                   changeConversation(user._id);
                 }}
               >
-                <UserTile image={user.image} username={user.username} />
+                <ConversationTile
+                  image={user.image}
+                  title={user.username}
+                  status={user.status}
+                  notifications={""}
+                />
               </Box>
             );
           })}

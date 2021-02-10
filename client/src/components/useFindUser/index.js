@@ -9,13 +9,14 @@ export default function useFindUser() {
       const requestOptions = {
         method: "GET",
         headers: {
-          Accept: 'application/json',
+          Accept: "application/json",
         },
       };
 
       await fetch("/auth", requestOptions)
-        .then(async function(res){
+        .then(async function (res) {
           const data = await res.json();
+          // console.log(data.user);
           setUser(data.user);
           setLoading(false);
         })
