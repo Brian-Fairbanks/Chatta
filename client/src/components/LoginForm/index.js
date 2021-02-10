@@ -2,7 +2,8 @@ import Form from "@material-ui/core/FormControl";
 import { TextField, Button, Typography, Snackbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert as MuiAlert } from "@material-ui/lab";
-import React, { useState } from "react";
+import React, { useState, useNavigate } from "react";
+import { useHistory } from "react-router-dom";
 
 import API from "../../utils/API";
 import Validation from "../../utils/Validate";
@@ -32,6 +33,7 @@ function Alert(props) {
 function LoginForm() {
   // set up styles for use by elements
   const classes = useStyles();
+  let history = useHistory();
 
   // Set up States
   const [userSubmission, setUserSubmission] = useState({
@@ -60,6 +62,7 @@ function LoginForm() {
             msg: "You are now signed on!",
           });
           handleAlert();
+          history.push("/chat");
         } else if (data.status === 401) {
           setSnackSettings({
             severity: "error",
