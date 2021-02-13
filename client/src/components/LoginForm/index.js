@@ -56,7 +56,7 @@ function LoginForm() {
     }
     API.LogIn(userSubmission)
       .then((data) => {
-        if (data.status === 200) {
+        if (data.status === 201) {
           setSnackSettings({
             severity: "success",
             msg: "You are now signed on!",
