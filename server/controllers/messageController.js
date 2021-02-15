@@ -40,7 +40,7 @@ module.exports = {
     // Create the message
     try {
       // create the message
-      let newMessage = await db.Message.create(msg);
+      const newMessage = await db.Message.create(msg);
 
       // updated the most recent message in the conversation document
       await conversation.update({

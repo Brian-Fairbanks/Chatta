@@ -2,7 +2,7 @@ import { useContext } from "react";
 import openSocket from "socket.io-client";
 import { ChatroomContext } from "./ChatroomContext";
 
-var socket;
+let socket;
 
 export default {
   // connect user to backend sockets
@@ -10,10 +10,4 @@ export default {
     socket = openSocket("/users", { query: user });
     return socket;
   },
-
-  // moved to backend, kept for testing
-  // send message from user
-  // socketMsg(msgData) {
-  //   socket.emit("chatMessage", msgData);
-  // },
 };

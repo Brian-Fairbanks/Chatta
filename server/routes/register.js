@@ -1,44 +1,47 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const utils = require("../controllers/utils");
 
-const db = require('../models')
+const db = require("../models");
 
-router.post('/', function (req, res) {
+router.post("/", function (req, res) {
   const newUser = db.User.create({
     username: req.body.username,
     password: req.body.password,
     lastName: req.body.lastName,
     firstName: req.body.firstName,
-    email: req.body.email
+    email: req.body.email,
   })
     .then(function () {
-      res.status(201).json(newUser)
+      // strange bit of of coding where passport is hardcoded to accept "username", but we want to authenticate on "email"
+      req.body.username = req.body.email;
+      return utils.login(req, res);
     })
     .catch(function (err) {
-      res.status(400).json(formatError(err))
-    })
-})
+      console.error(err);
+      res.status(400).json(formatError(err));
+    });
+});
 
-// Helper function to format the returned data on a 400 error
-function formatError (err) {
+function formatError(err) {
   const errorMessage = {
-    severity: 'error',
+    severity: "error",
     msg: err,
-    name: null
-  }
+    name: null,
+  };
   // is the error username related?
   if (err.keyValue && err.keyValue.username) {
-    errorMessage.msg = `${err.keyValue.username} is already taken`
-    errorMessage.name = 'username'
+    errorMessage.msg = `${err.keyValue.username} is already taken`;
+    errorMessage.name = "username";
   }
   // is the error email related?
   if (err.keyValue && err.keyValue.email) {
-    errorMessage.msg = `${err.keyValue.email} is already taken`
-    errorMessage.name = 'email'
+    errorMessage.msg = `${err.keyValue.email} is already taken`;
+    errorMessage.name = "email";
   }
 
   // Return the formatted error message
-  return errorMessage
+  return errorMessage;
 }
 
-module.exports = router
+module.exports = router;
